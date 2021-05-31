@@ -24,7 +24,7 @@ public class MyViewController implements Initializable, IView{
     public MyModel generator;
     public TextField textField_mazeRows;
     public TextField textField_mazeColumns;
-    public MyViewModel mazeDisplayer;
+    public MazeDisplayer mazeDisplayer;
     public Label playerRow;
     public Label playerCol;
 
@@ -60,7 +60,7 @@ public class MyViewController implements Initializable, IView{
         int rows = Integer.valueOf(textField_mazeRows.getText());
         int cols = Integer.valueOf(textField_mazeColumns.getText());
 
-        int[][] maze = generator.generateRandomMaze(rows, cols);
+        int[][] maze = generator.generateMaze(rows, cols);
 
         mazeDisplayer.drawMaze(maze);
         setPlayerPosition(0, 0);
@@ -97,10 +97,13 @@ public class MyViewController implements Initializable, IView{
     }
 
     public void setPlayerPosition(int row, int col){
-        mazeDisplayer.setPlayerPosition(row, col);
-        setUpdatePlayerRow(row);
-        setUpdatePlayerCol(col);
+        if(mazeDisplayer.setPlayerPosition(row, col) ) {
+            setUpdatePlayerRow(row);
+            setUpdatePlayerCol(col);
+        }
     }
+
+
 
     public void mouseClicked(MouseEvent mouseEvent) {
         mazeDisplayer.requestFocus();
