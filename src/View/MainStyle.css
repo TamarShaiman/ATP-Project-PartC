@@ -6,7 +6,7 @@ Button {
     -fx-text-fill: white;
     -fx-font-family: 'Helvetica', Arial, sans-serif;
     -fx-font-weight: bold;
-    -fx-background-color: linear-gradient(#61a2b1, #2A5058);
+    -fx-background-color: linear-gradient(#65a2b1, #2A7058);
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
 }
 
