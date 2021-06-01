@@ -16,6 +16,11 @@ public class MazeDisplayer extends Canvas {
     // player position:
     private int playerRow = 0;
     private int playerCol = 0;
+    private int startRow;
+    private int startCol;
+    private int goalRow;
+    private int goalCol;
+
     // wall and player images:
     StringProperty imageFileNameWall = new SimpleStringProperty();
     StringProperty imageFileNamePlayer = new SimpleStringProperty();

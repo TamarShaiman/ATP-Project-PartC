@@ -19,8 +19,6 @@ import algorithms.mazeGenerators.*;
 import ViewModel.*;
 import Model.*;
 
-
-
 public class MyViewController implements Initializable, IView{
     public MyModel generator;
     public TextField textField_mazeRows;
@@ -71,6 +69,8 @@ public class MyViewController implements Initializable, IView{
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setContentText("Solving maze...");
         alert.show();
+       generator.SolveMaze();
+
     }
 
     public void openFile(ActionEvent actionEvent) {
