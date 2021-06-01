@@ -7,6 +7,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
@@ -90,6 +91,23 @@ public class MyViewController implements Initializable, IView{
             case DOWN -> row += 1;
             case RIGHT -> col += 1;
             case LEFT -> col -= 1;
+            case NUMPAD8 -> row -= 1;
+            case NUMPAD2 -> row += 1;
+            case NUMPAD6 -> col += 1;
+            case NUMPAD4 -> col -= 1;
+            case NUMPAD9 -> {
+                row -= 1;  col += 1;
+            }
+            case NUMPAD3 -> {
+                row += 1;  col += 1;
+            }
+            case NUMPAD1 -> {
+                row += 1;  col -= 1;
+            }
+            case NUMPAD7 -> {
+                row -= 1;  col -= 1;
+            }
+
         }
         setPlayerPosition(row, col);
 
@@ -102,8 +120,6 @@ public class MyViewController implements Initializable, IView{
             setUpdatePlayerCol(col);
         }
     }
-
-
 
     public void mouseClicked(MouseEvent mouseEvent) {
         mazeDisplayer.requestFocus();
