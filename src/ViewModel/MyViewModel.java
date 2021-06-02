@@ -1,6 +1,7 @@
 package ViewModel;
 
 import Model.IModel;
+import View.MyViewController;
 import javafx.scene.input.KeyEvent;
 
 import java.util.Observable;

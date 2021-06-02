@@ -34,6 +34,8 @@ public class MyViewController implements Initializable, IView, Observer {
     StringProperty updatePlayerRow = new SimpleStringProperty();
     StringProperty updatePlayerCol = new SimpleStringProperty();
 
+
+
     public String getUpdatePlayerRow() {
         return updatePlayerRow.get();
     }
@@ -61,8 +63,13 @@ public class MyViewController implements Initializable, IView, Observer {
     }
 
     public void generateMaze() {
-        if(generator == null)
+        if(generator == null) {
             generator = new MyModel();
+            viewModel = new MyViewModel(generator);
+/*
+            this.viewModel.assignObserver(this);
+*/
+        }
 
         int rows = Integer.valueOf(textField_mazeRows.getText());
         int cols = Integer.valueOf(textField_mazeColumns.getText());
@@ -150,6 +157,8 @@ public class MyViewController implements Initializable, IView, Observer {
             if(maze == null)//generateMaze
             {
                 this.maze = this.viewModel.getMaze();
+                drawMaze();
+
             }
             else {
                 int[][] viewModelMaze = this.viewModel.getMaze();
