@@ -10,7 +10,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
-
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -104,6 +105,14 @@ public class MyViewController implements Initializable, IView{
 
     public void mouseClicked(MouseEvent mouseEvent) {
         mazeDisplayer.requestFocus();
+    }
+
+    public void MusicCheckBox(ActionEvent actionEvent) {
+        String musicFile = "resources/Music/Music1.mp3";     // For example
+
+        Media sound = new Media(new File(musicFile).toURI().toString());
+        MediaPlayer mediaPlayer = new MediaPlayer(sound);
+        mediaPlayer.play();
     }
 }
 
