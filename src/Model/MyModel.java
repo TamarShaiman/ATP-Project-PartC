@@ -82,6 +82,8 @@ public class MyModel extends Observable implements IModel {
         } catch (UnknownHostException var1) {
             var1.printStackTrace();
         }
+        setChanged();
+        notifyObservers();
     }
 
     @Override
@@ -116,6 +118,8 @@ public class MyModel extends Observable implements IModel {
         } catch (UnknownHostException var1) {
             var1.printStackTrace();
         }
+        setChanged();
+        notifyObservers();
     }
 
 
@@ -201,7 +205,6 @@ public class MyModel extends Observable implements IModel {
                   }
                 break;
         }
-
         setChanged();
         notifyObservers();
     }

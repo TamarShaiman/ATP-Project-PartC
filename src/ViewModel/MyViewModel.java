@@ -74,6 +74,8 @@ public class MyViewModel extends Observable implements Observer {
     public void generateMaze(int row,int col)
     {
         this.model.generateRandomMaze(row,col);
+        setChanged();
+        notifyObservers();
     }
 
     public void moveCharacter(KeyEvent keyEvent)
@@ -131,6 +133,8 @@ public class MyViewModel extends Observable implements Observer {
         }
 
         model.updateCharacterLocation(direction);
+        setChanged();
+        notifyObservers();
     }
 
     public void solveMaze()

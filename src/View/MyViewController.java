@@ -66,9 +66,7 @@ public class MyViewController implements Initializable, IView, Observer {
         if(generator == null) {
             generator = new MyModel();
             viewModel = new MyViewModel(generator);
-/*
-            this.viewModel.assignObserver(this);
-*/
+            this.viewModel.addObserver(this);
         }
 
         int rows = Integer.valueOf(textField_mazeRows.getText());
@@ -180,6 +178,7 @@ public class MyViewController implements Initializable, IView, Observer {
                             setUpdatePlayerRow(this.viewModel.getRowChar());
                             setUpdatePlayerCol(this.viewModel.getColChar());
                         }
+                        drawMaze();
                     }
                     else{
                         Alert alert = new Alert(Alert.AlertType.INFORMATION);
