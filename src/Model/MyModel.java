@@ -6,6 +6,7 @@ import algorithms.mazeGenerators.*;
 import  Server.*;
 import  Client.*;
 import algorithms.search.AState;
+import algorithms.search.MazeState;
 import algorithms.search.Solution;
 import java.util.Observable;
 import javafx.collections.ObservableArrayBase;
@@ -24,6 +25,10 @@ public class MyModel extends Observable implements IModel {
     int[][] mazeTable;
     int rowChar;
     int colChar;
+    int colStart;
+    int rowStart;
+    int colGoal;
+    int rowGoal;
     ArrayList<AState> mazeSolutionSteps;
 
     public MyModel() {
@@ -57,6 +62,10 @@ public class MyModel extends Observable implements IModel {
                         maze = new Maze(decompressedMaze);
                         rowChar = maze.getStartPosition().getRowIndex();
                         colChar = maze.getStartPosition().getColIndex();
+                        rowStart = maze.getStartPosition().getRowIndex();
+                        colStart = maze.getStartPosition().getColIndex();
+                        rowGoal = maze.getGoalPosition().getRowIndex();
+                        colGoal = maze.getGoalPosition().getColIndex();
                         maze.print();
                     } catch (Exception var10) {
                         var10.printStackTrace();
@@ -75,8 +84,8 @@ public class MyModel extends Observable implements IModel {
         }
     }
 
-
-    public void SolveMaze() {
+    @Override
+    public void solveMaze() {
         try {
             Client client = new Client(InetAddress.getLocalHost(), 5401, new IClientStrategy() {
                 public void clientStrategy(InputStream inFromServer, OutputStream outToServer) {
@@ -109,27 +118,28 @@ public class MyModel extends Observable implements IModel {
         }
     }
 
-/*
-    @Override
-    public void saveMaze(Maze maze) {
-
-    }
-
-    @Override
-    public void savePlayer(int row, int col) {
-
-    }
-*/
-/*
-    @Override
-    public Maze loadMaze(String path) {
-        return null;
-    }*/
 
     @Override
     public int[][] getMaze() {
         return this.mazeTable;
     }
+
+    public int getColStart() {
+        return colStart;
+    }
+
+    public int getRowStart() {
+        return rowStart;
+    }
+
+    public int getColGoal() {
+        return colGoal;
+    }
+
+    public int getRowGoal() {
+        return rowGoal;
+    }
+
 
     @Override
     public void updateCharacterLocation(int direction) {
@@ -212,12 +222,31 @@ public class MyModel extends Observable implements IModel {
     }
 
     @Override
-    public void solveMaze(int[][] maze) {
+    public int[][] getSolution() {
+        int[][] pathSolutionByIntArray = new int[this.mazeSolutionSteps.size()][2];
+        for (int i = 0; i < this.mazeSolutionSteps.size(); i++) {
+            if(this.mazeSolutionSteps.get(i) instanceof MazeState){
+                pathSolutionByIntArray[i][0] = ((MazeState) this.mazeSolutionSteps.get(i)).getPosition().getRowIndex();
+                pathSolutionByIntArray[i][1] = ((MazeState) this.mazeSolutionSteps.get(i)).getPosition().getColIndex();
+            }
+
+        }
+        return pathSolutionByIntArray;
+    }
+    /*
+    @Override
+    public void saveMaze(Maze maze) {
 
     }
 
     @Override
-    public void getSolution() {
+    public void savePlayer(int row, int col) {
 
     }
+*/
+/*
+    @Override
+    public Maze loadMaze(String path) {
+        return null;
+    }*/
 }

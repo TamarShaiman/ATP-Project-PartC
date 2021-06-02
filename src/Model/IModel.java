@@ -23,7 +23,11 @@ public interface IModel {
      int getRowChar();
      int getColChar();
      void assignObserver(Observer o);
-     void solveMaze(int [][] maze);
-     void getSolution();
+     void solveMaze();
+     int[][] getSolution();
+     int getColStart();
+     int getRowStart();
+     int getColGoal();
+     int getRowGoal();
 
 }
