@@ -124,4 +124,11 @@ public class MyViewModel extends Observable implements Observer {
         return this.model.getColGoal();
     }
 
+    public void saveMaze() {
+        this.model.saveMaze();
+    }
+
+    public void loadMaze() {
+        this.model.loadMaze();
+    }
 }

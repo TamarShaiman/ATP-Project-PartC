@@ -10,6 +10,8 @@ import algorithms.search.MazeState;
 import algorithms.search.Solution;
 import java.util.Observable;
 import javafx.collections.ObservableArrayBase;
+import javafx.stage.FileChooser;
+import javafx.stage.Window;
 
 import java.io.*;
 import java.net.InetAddress;
@@ -17,6 +19,8 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Observer;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class MyModel extends Observable implements IModel {
     Server mazeGeneratingServer;
@@ -31,10 +35,12 @@ public class MyModel extends Observable implements IModel {
     int rowGoal;
     Solution mazeSolution;
 
+
     public MyModel() {
         mazeGeneratingServer = new Server(5400, 1000, new ServerStrategyGenerateMaze());
         solveSearchProblemServer = new Server(5401,1000, new ServerStrategySolveSearchProblem());
         solveSearchProblemServer.start();
+        mazeGeneratingServer.start();
 
         this.maze = null;
         rowChar = 0;
@@ -44,7 +50,6 @@ public class MyModel extends Observable implements IModel {
     @Override
     public void generateMaze(int row, int col) {
         int[][] mazeGrid = new int[row][col];
-        mazeGeneratingServer.start();
         try {
             Client client = new Client(InetAddress.getLocalHost(), 5400, new IClientStrategy() {
                 public void clientStrategy(InputStream inFromServer, OutputStream outToServer) {
@@ -71,22 +76,15 @@ public class MyModel extends Observable implements IModel {
                         var10.printStackTrace();
                     }
                 }
-            });
-            client.communicateWithServer();
-            mazeGeneratingServer.stop();
+            });client.communicateWithServer();
+            initMazeTable();
 
-            mazeTable = new int[row][col];
-            for (int i = 0; i < row; i++) {
-                for (int j = 0; j < col; j++) {
-                    mazeTable[i][j] = maze.getCellValue(i, j);
-                }
-            }
         } catch (UnknownHostException var1) {
             var1.printStackTrace();
         }
         setChanged();
         notifyObservers("maze generated");
-    }
+    };
 
     @Override
     public void solveMaze() {
@@ -249,20 +247,79 @@ public class MyModel extends Observable implements IModel {
         }
         return pathSolutionByIntArray;
     }
-    /*
-    @Override
-    public void saveMaze(Maze maze) {
 
+    @Override
+    public void saveMaze() {
+        FileChooser chooser = new FileChooser();
+        chooser.setTitle("Save Maze");
+        chooser.getExtensionFilters().add( new FileChooser.ExtensionFilter("Mazes Files","*.maze"));
+        chooser.setInitialFileName("maze.maze");
+        File file = chooser.showSaveDialog((Window)null);
+
+        if (file != null) {
+            try {
+                ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(file));
+                objectOutputStream.writeObject(this.maze);
+            } catch (IOException var4) {
+                var4.printStackTrace();
+            }
+        }
+
+    }
+    @Override
+    public void savePlayer() {
+        FileChooser chooser = new FileChooser();
+        chooser.setTitle("Save Player");
+        chooser.getExtensionFilters().add( new FileChooser.ExtensionFilter("player position Files","*.playerPosition"));
+        chooser.setInitialFileName("player.playerPosition");
+        File file = chooser.showSaveDialog((Window)null);
+
+        if (file != null) {
+            try {
+                ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(file));
+                int[] playerPosition = {rowChar,colChar};
+                objectOutputStream.writeObject(playerPosition);
+            } catch (IOException var4) {
+                var4.printStackTrace();
+            }
+        }
     }
 
     @Override
-    public void savePlayer(int row, int col) {
-
+    public void loadMaze() {
+        FileChooser chooser = new FileChooser();
+        chooser.getExtensionFilters().add( new FileChooser.ExtensionFilter("Mazes Files","*.maze"));
+        chooser.setInitialFileName("maze.maze");
+        chooser.setTitle("Load Maze");
+        File file = chooser.showOpenDialog((Window)null);
+        if (file != null) {
+            try {
+                ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(file));
+                Maze maze = (Maze) objectInputStream.readObject();
+                objectInputStream.close();
+                this.maze = maze;
+                initMazeTable();
+                this.rowChar = maze.getStartPosition().getRowIndex();
+                this.colChar = maze.getStartPosition().getColIndex();
+                this.rowGoal = maze.getGoalPosition().getRowIndex();
+                this.colGoal = maze.getGoalPosition().getColIndex();
+            } catch (IOException var5) {
+                var5.printStackTrace();
+            } catch (ClassNotFoundException var6) {
+                var6.printStackTrace();
+            }
+            this.setChanged();
+            this.notifyObservers("load maze");
+        }
     }
-*/
-/*
-    @Override
-    public Maze loadMaze(String path) {
-        return null;
-    }*/
+
+    private void initMazeTable() {
+        mazeTable = new int[maze.getRowNum()][maze.getColNum()];
+        for (int i = 0; i < maze.getRowNum(); i++) {
+            for (int j = 0; j < maze.getColNum(); j++) {
+                mazeTable[i][j] = maze.getCellValue(i, j);
+            }
+        }
+    }
+
 }
