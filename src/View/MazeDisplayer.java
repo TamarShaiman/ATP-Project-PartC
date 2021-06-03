@@ -1,5 +1,6 @@
 package View;
 
+import algorithms.search.Solution;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -20,6 +21,8 @@ public class MazeDisplayer extends Canvas {
     private int startCol;
     private int goalRow;
     private int goalCol;
+    private Solution solution;
+
 
     // wall and player images:
     StringProperty imageFileNameWall = new SimpleStringProperty();
@@ -32,6 +35,14 @@ public class MazeDisplayer extends Canvas {
 
     public int getPlayerCol() {
         return playerCol;
+    }
+    public Solution getSolution() {
+        return solution;
+    }
+
+    public void setSolution(Solution solution) {
+        this.solution = solution;
+        draw();
     }
 
     public boolean setPlayerPosition(int row, int col) {
@@ -97,8 +108,16 @@ public class MazeDisplayer extends Canvas {
             graphicsContext.clearRect(0, 0, canvasWidth, canvasHeight);
 
             drawMazeWalls(graphicsContext, cellHeight, cellWidth, rows, cols);
+            if(solution != null){
+                drawSolution(graphicsContext, cellHeight, cellWidth) ;
+            }
             drawPlayer(graphicsContext, cellHeight, cellWidth);
         }
+    }
+
+    private void drawSolution(GraphicsContext graphicsContext, double cellHeight, double cellWidth) {
+        System.out.println("drawing solution");
+
     }
 
     private void drawMazeWalls(GraphicsContext graphicsContext, double cellHeight, double cellWidth, int rows, int cols) {

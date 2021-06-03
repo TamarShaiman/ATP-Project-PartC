@@ -29,7 +29,7 @@ public class MyModel extends Observable implements IModel {
     int rowStart;
     int colGoal;
     int rowGoal;
-    ArrayList<AState> mazeSolutionSteps;
+    Solution mazeSolution;
 
     public MyModel() {
         mazeGeneratingServer = new Server(5400, 1000, new ServerStrategyGenerateMaze());
@@ -42,13 +42,12 @@ public class MyModel extends Observable implements IModel {
     }
 
     @Override
-    public void generateRandomMaze(int row, int col) {
+    public void generateMaze(int row, int col) {
         int[][] mazeGrid = new int[row][col];
         try {
             Client client = new Client(InetAddress.getLocalHost(), 5400, new IClientStrategy() {
                 public void clientStrategy(InputStream inFromServer, OutputStream outToServer) {
                     try {
-                        //System.out.println("Hiiii");
                         ObjectOutputStream toServer = new ObjectOutputStream(outToServer);
                         ObjectInputStream fromServer = new ObjectInputStream(inFromServer);
                         toServer.flush();
@@ -83,7 +82,7 @@ public class MyModel extends Observable implements IModel {
             var1.printStackTrace();
         }
         setChanged();
-        notifyObservers();
+        notifyObservers("maze generated");
     }
 
     @Override
@@ -95,15 +94,13 @@ public class MyModel extends Observable implements IModel {
                         ObjectOutputStream toServer = new ObjectOutputStream(outToServer);
                         ObjectInputStream fromServer = new ObjectInputStream(inFromServer);
                         toServer.flush();
-                    /*    MyMazeGenerator mg = new MyMazeGenerator();
-                        Maze maze = mg.generate(50, 50);*/
                         maze.print();
                         toServer.writeObject(maze);
                         toServer.flush();
-                        Solution mazeSolution = (Solution)fromServer.readObject();
+                         mazeSolution = (Solution)fromServer.readObject();
                         System.out.println(String.format("Solution steps: %s", mazeSolution));
-                        mazeSolutionSteps = new ArrayList<>();
-                        mazeSolutionSteps = mazeSolution.getSolutionPath();
+                        /*mazeSolutionSteps = new ArrayList<>();
+                        mazeSolutionSteps = mazeSolution.getSolutionPath();*/
 
                         /*for(int i = 0; i < mazeSolutionSteps.size(); ++i) {
                             System.out.println(String.format("%s. %s", i, ((AState)mazeSolutionSteps.get(i)).toString()));
@@ -111,7 +108,6 @@ public class MyModel extends Observable implements IModel {
                     } catch (Exception var10) {
                         var10.printStackTrace();
                     }
-
                 }
             });
             client.communicateWithServer();
@@ -119,7 +115,7 @@ public class MyModel extends Observable implements IModel {
             var1.printStackTrace();
         }
         setChanged();
-        notifyObservers();
+        notifyObservers("maze solved");
     }
 
 
@@ -144,6 +140,11 @@ public class MyModel extends Observable implements IModel {
         return rowGoal;
     }
 
+    @Override
+    public Solution getSolution() {
+        return mazeSolution;
+    }
+
 
     @Override
     public void updateCharacterLocation(int direction) {
@@ -157,56 +158,65 @@ public class MyModel extends Observable implements IModel {
             direction = 7 -> Left
             direction = 8 -> Left Up
          */
+        String arg = "invalid step";
 
         switch(direction)
         {
             case 1: //Up
                 if(rowChar!=0 && mazeTable[rowChar-1][colChar]==0) {
                     rowChar--;
+                    arg = "player moved";
                 }
                 break;
             case 2: //Up Right
                   if(rowChar!=0 && colChar!=mazeTable[0].length-1 && mazeTable[rowChar-1][colChar+1]==0) {
                       rowChar--;
                       colChar++;
+                      arg = "player moved";
                   }
                 break;
             case 3: //Right
                   if(colChar!=mazeTable[0].length-1 && mazeTable[rowChar][colChar+1]==0) {
                       colChar++;
+                      arg = "player moved";
                   }
                 break;
             case 4: //Right Down
                   if(colChar!=mazeTable[0].length-1 && rowChar!=mazeTable.length+1 && mazeTable[rowChar+1][colChar+1]==0) {
                       rowChar++;
                       colChar++;
+                      arg = "player moved";
                   }
                 break;
             case 5: //Down
                 if(rowChar!=mazeTable.length-1 && mazeTable[rowChar+1][colChar]==0) {
                     rowChar++;
+                    arg = "player moved";
                 }
                 break;
             case 6: //Down Left
                   if(rowChar!=mazeTable.length-1 && colChar!=0 && mazeTable[rowChar+1][colChar-1]==0) {
                       rowChar++;
                       colChar--;
+                      arg = "player moved";
                   }
                 break;
             case 7: //Left
                   if(colChar!=0 && mazeTable[rowChar][colChar-1]==0) {
                       colChar--;
+                      arg = "player moved";
                   }
                 break;
             case 8: //Left Up
                   if(colChar!=0 && rowChar!=0 && mazeTable[rowChar-1][colChar-1]==0) {
                       colChar--;
                       rowChar--;
+                      arg = "player moved";
                   }
-                break;
+                  break;
         }
         setChanged();
-        notifyObservers();
+        notifyObservers(arg);
     }
 
     @Override
@@ -224,13 +234,13 @@ public class MyModel extends Observable implements IModel {
         this.addObserver(o);
     }
 
-    @Override
-    public int[][] getSolution() {
-        int[][] pathSolutionByIntArray = new int[this.mazeSolutionSteps.size()][2];
-        for (int i = 0; i < this.mazeSolutionSteps.size(); i++) {
-            if(this.mazeSolutionSteps.get(i) instanceof MazeState){
-                pathSolutionByIntArray[i][0] = ((MazeState) this.mazeSolutionSteps.get(i)).getPosition().getRowIndex();
-                pathSolutionByIntArray[i][1] = ((MazeState) this.mazeSolutionSteps.get(i)).getPosition().getColIndex();
+    public int[][] getSolutionPath() {
+        ArrayList<AState> mazeSolutionSteps = mazeSolution.getSolutionPath();
+        int[][] pathSolutionByIntArray = new int[mazeSolutionSteps.size()][2];
+        for (int i = 0; i < mazeSolutionSteps.size(); i++) {
+            if(mazeSolutionSteps.get(i) instanceof MazeState){
+                pathSolutionByIntArray[i][0] = ((MazeState) mazeSolutionSteps.get(i)).getPosition().getRowIndex();
+                pathSolutionByIntArray[i][1] = ((MazeState) mazeSolutionSteps.get(i)).getPosition().getColIndex();
             }
 
         }
