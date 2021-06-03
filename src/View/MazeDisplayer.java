@@ -26,6 +26,7 @@ public class MazeDisplayer extends Canvas {
 
     // wall and player images:
     StringProperty imageFileNameWall = new SimpleStringProperty();
+    StringProperty imageFileNamePath = new SimpleStringProperty();
     StringProperty imageFileNamePlayer = new SimpleStringProperty();
 
 
@@ -68,11 +69,23 @@ public class MazeDisplayer extends Canvas {
         return imageFileNameWall.get();
     }
 
+    public String getImageFileNamePath() {
+        return imageFileNamePath.get();
+    }
+
     public String imageFileNameWallProperty() {
         return imageFileNameWall.get();
     }
 
+    public String imageFileNamePathProperty() {
+        return imageFileNamePath.get();
+    }
+
     public void setImageFileNameWall(String imageFileNameWall) {
+        this.imageFileNameWall.set(imageFileNameWall);
+    }
+
+    public void setImageFileNamePath(String imageFileNameWall) {
         this.imageFileNameWall.set(imageFileNameWall);
     }
 
@@ -112,6 +125,7 @@ public class MazeDisplayer extends Canvas {
                 drawSolution(graphicsContext, cellHeight, cellWidth) ;
             }
             drawPlayer(graphicsContext, cellHeight, cellWidth);
+            drawMazePaths(graphicsContext, cellHeight, cellWidth, rows, cols);
         }
     }
 
@@ -140,6 +154,31 @@ public class MazeDisplayer extends Canvas {
                         graphicsContext.fillRect(x, y, cellWidth, cellHeight);
                     else
                         graphicsContext.drawImage(wallImage, x, y, cellWidth, cellHeight);
+                }
+            }
+        }
+    }
+
+    private void drawMazePaths(GraphicsContext graphicsContext, double cellHeight, double cellWidth, int rows, int cols) {
+        graphicsContext.setFill(Color.RED);
+
+        Image pathImage = null;
+        try{
+            pathImage = new Image(new FileInputStream(getImageFileNamePath()));
+        } catch (FileNotFoundException e) {
+            System.out.println("There is no path image file");
+        }
+
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                if(maze[i][j] == 0){
+                    //if it is a path:
+                    double x = j * cellWidth;
+                    double y = i * cellHeight;
+                    if(pathImage == null)
+                        graphicsContext.fillRect(x, y, cellWidth, cellHeight);
+                    else
+                        graphicsContext.drawImage(pathImage, x, y, cellWidth, cellHeight);
                 }
             }
         }
