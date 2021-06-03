@@ -122,6 +122,7 @@ public class MyViewController implements Initializable, IView, Observer {
                 case "player moved" -> playerMoved();
                 case "maze solved" -> mazeSolved();
                 case "invalid step" -> invalidStep();
+                case "load maze" -> loadedMaze();
             }
             /*if(maze == null)//generateMaze
             {
@@ -163,6 +164,11 @@ public class MyViewController implements Initializable, IView, Observer {
         }
     }
 
+    private void loadedMaze() {
+        mazeDisplayer.drawMaze(viewModel.getMaze());
+        playerMoved();
+    }
+
     private void invalidStep() {
         System.out.println("invalid");
     }
@@ -186,6 +192,14 @@ public class MyViewController implements Initializable, IView, Observer {
         Media sound = new Media(new File(musicFile).toURI().toString());
         MediaPlayer mediaPlayer = new MediaPlayer(sound);
         mediaPlayer.play();
+    }
+
+    public void saveMaze(ActionEvent actionEvent) {
+        this.viewModel.saveMaze();
+    }
+
+    public void loadMaze(ActionEvent actionEvent) {
+        this.viewModel.loadMaze();
     }
 }
 

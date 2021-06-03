@@ -86,10 +86,10 @@
                                 <MenuItem mnemonicParsing="false" text="New" />
                             </items>
                             <items>
-                                <MenuItem mnemonicParsing="false" text="Save" />
+                                <MenuItem mnemonicParsing="false" text="Save" onAction="#saveMaze" />
                             </items>
                             <items>
-                                <MenuItem mnemonicParsing="false" text="Load" />
+                                <MenuItem mnemonicParsing="false" text="Load" onAction="#loadMaze" />
                             </items>
                         </Menu>
                         <Menu mnemonicParsing="false" text="Options">
@@ -113,7 +113,7 @@
             <children>
                 <MazeDisplayer fx:id="mazeDisplayer" height="400.0"
                                imageFileNamePlayer="./resources/images/player.jpeg"
-                               imageFileNamePath="./resources/images/path.jpeg"
+                               imageFileNamePath="./resources/images/path.jpg"
                                imageFileNameWall="./resources/images/wall.png"
                                onKeyPressed="#keyPressed"
                                width="400.0"/>

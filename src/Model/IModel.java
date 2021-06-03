@@ -21,9 +21,9 @@ public interface IModel {
      int getRowStart();
      int getColGoal();
      int getRowGoal();
+     void saveMaze();
+     void loadMaze();
+     void savePlayer();
 
-/*     void saveMaze(Maze maze);
-     void savePlayer(int row, int col);
-     Maze loadMaze(String path);*/
 
 }
