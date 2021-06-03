@@ -74,9 +74,10 @@ public class MazeDisplayer extends Canvas {
         this.imageFileNameWall.set(imageFileNameWall);
     }
 
-    public void setImageFileNamePath(String imageFileNameWall) {
-        this.imageFileNameWall.set(imageFileNameWall);
+    public void setImageFileNamePath(String imageFileNamePath) {
+        this.imageFileNamePath.set(imageFileNamePath);
     }
+
 
     public String getImageFileNamePlayer() {
         return imageFileNamePlayer.get();
@@ -110,8 +111,8 @@ public class MazeDisplayer extends Canvas {
             graphicsContext.clearRect(0, 0, canvasWidth, canvasHeight);
 
             drawMazeWalls(graphicsContext, cellHeight, cellWidth, rows, cols);
-            drawPlayer(graphicsContext, cellHeight, cellWidth);
             drawMazePaths(graphicsContext, cellHeight, cellWidth, rows, cols);
+            drawPlayer(graphicsContext, cellHeight, cellWidth);
         }
     }
 

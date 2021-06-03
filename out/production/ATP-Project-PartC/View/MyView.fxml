@@ -27,7 +27,7 @@
 <?import View.MazeDisplayer?>
 <BorderPane onMouseClicked="#mouseClicked" prefHeight="408.0" prefWidth="594.0" stylesheets="@MainStyle.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.MyViewController">
     <left>
-        <VBox prefHeight="267.0" prefWidth="202.0" spacing="5.0" style="-fx-background-color: mistyrose;">
+        <VBox opacity="0.83" prefHeight="267.0" prefWidth="202.0" spacing="5.0" style="-fx-background-color: mistyrose;">
             <children>
                 <GridPane prefWidth="168.0">
                     <columnConstraints>
@@ -111,7 +111,12 @@
     <center>
         <Pane BorderPane.alignment="CENTER">
             <children>
-                <MazeDisplayer fx:id="mazeDisplayer" height="400.0" imageFileNamePlayer="./resources/images/player.jpeg" imageFileNamePath="./resources/images/path.jpg" imageFileNameWall="./resources/images/wall.png"  onKeyPressed="#keyPressed" width="400.0" />
+                <MazeDisplayer fx:id="mazeDisplayer" height="400.0"
+                               imageFileNamePlayer="./resources/images/player.jpeg"
+                               imageFileNamePath="./resources/images/path.jpeg"
+                               imageFileNameWall="./resources/images/wall.png"
+                               onKeyPressed="#keyPressed"
+                               width="400.0"/>
             </children>
             <padding>
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
