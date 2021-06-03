@@ -177,8 +177,10 @@ public class MyViewController implements Initializable, IView, Observer {
                         } else {
                             setUpdatePlayerRow(this.viewModel.getRowChar());
                             setUpdatePlayerCol(this.viewModel.getColChar());
+                            mazeDisplayer.setPlayerPosition(this.viewModel.getRowChar(),this.viewModel.getColChar());
                         }
                         drawMaze();
+
                     }
                     else{
                         Alert alert = new Alert(Alert.AlertType.INFORMATION);
