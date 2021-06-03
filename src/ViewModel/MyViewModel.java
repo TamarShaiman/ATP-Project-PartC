@@ -2,6 +2,7 @@ package ViewModel;
 
 import Model.IModel;
 import View.MyViewController;
+import algorithms.search.Solution;
 import javafx.scene.input.KeyEvent;
 
 import java.util.Observable;
@@ -12,8 +13,6 @@ public class MyViewModel extends Observable implements Observer {
     private IModel model;
     private int [][] maze;
     private int [][] solutionPath;
-    private int rowChar;
-    private int colChar;
 
 
     public MyViewModel(IModel model) {
@@ -25,57 +24,39 @@ public class MyViewModel extends Observable implements Observer {
 
 
     public int[][] getMaze() {
-        return maze;
+        return model.getMaze();
     }
 
     public int getRowChar() {
-        return rowChar;
+        return model.getRowChar();
     }
 
     public int getColChar() {
-        return colChar;
+        return model.getColChar();
     }
 
     public int[][] getSolutionPath() {
         return solutionPath;
     }
 
+
+    private void mazeGenerated() {
+        this.maze = model.getMaze();
+    }
+
     @Override
     public void update(Observable o, Object arg) {
         if(o instanceof IModel)
         {
-            if(maze == null)//init - generateMaze
-            {
-                this.maze = model.getMaze();
-            }
-            else {
-                int[][] mazeModel = this.model.getMaze();
-                if(mazeModel != this.maze){ //user pressed generateMaze
-                    this.maze = mazeModel;
-                }
-                else { // user made step
-                    if (this.rowChar != this.model.getRowChar() || this.colChar != this.model.getColChar()) { //character moved
-                        this.rowChar = this.model.getRowChar();
-                        this.colChar = this.model.getColChar();
-                        if (this.model.getRowChar() == this.model.getRowGoal() && this.model.getColChar() == this.model.getColGoal()) { //character has reached the goal
-                            System.out.println("Goal! woohoo!!");
-                        }
-                    } else { //character didnt move - invalid step
-                        System.out.println("invalid step");
-                    }
-                }
-            }
             setChanged();
-            notifyObservers();
+            notifyObservers(arg);
         }
     }
 
 
     public void generateMaze(int row,int col)
     {
-        this.model.generateRandomMaze(row,col);
-        setChanged();
-        notifyObservers();
+        this.model.generateMaze(row,col);
     }
 
     public void moveCharacter(KeyEvent keyEvent)
@@ -93,48 +74,24 @@ public class MyViewModel extends Observable implements Observer {
         int direction = -1;
 
         switch (keyEvent.getCode()){
-            case UP:
-                direction = 1;
-                break;
-            case NUMPAD8:
-                direction = 1;
-                break;
-            case NUMPAD9:
-                direction = 2;
-                break;
-            case RIGHT:
-                direction = 3;
-                break;
-            case NUMPAD6:
-                direction = 3;
-                break;
-            case NUMPAD3:
-                direction = 4;
-                break;
-            case DOWN:
-                direction = 5;
-                break;
-            case NUMPAD2:
-                direction = 5;
-                break;
-            case NUMPAD1:
-                direction = 6;
-                break;
-            case LEFT:
-                direction = 7;
-                break;
-            case NUMPAD4:
-                direction = 7;
-                break;
-            case NUMPAD7:
-                direction = 8;
-                break;
-
+            case UP -> direction = 1;
+            case NUMPAD8 -> direction = 1;
+            case NUMPAD9-> direction = 2;
+            case RIGHT-> direction = 3;
+            case NUMPAD6-> direction = 3;
+            case NUMPAD3-> direction = 4;
+            case DOWN -> direction = 5;
+            case NUMPAD2-> direction = 5;
+            case NUMPAD1 -> direction = 6;
+            case LEFT-> direction = 7;
+            case NUMPAD4 -> direction = 7;
+            case NUMPAD7 -> direction = 8;
+            default -> {
+                //pressed other key
+                return;
+            }
         }
-
         model.updateCharacterLocation(direction);
-        setChanged();
-        notifyObservers();
     }
 
     public void solveMaze()
@@ -142,9 +99,9 @@ public class MyViewModel extends Observable implements Observer {
         model.solveMaze();
     }
 
-    public void getSolution()
+    public Solution getSolution()
     {
-        model.getSolution();
+        return model.getSolution();
     }
 
     public int getRowStart()

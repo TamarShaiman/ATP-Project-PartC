@@ -24,7 +24,9 @@ import Model.*;
 
 
 public class MyViewController implements Initializable, IView, Observer {
+/*
     public MyModel generator;
+*/
     public TextField textField_mazeRows;
     public TextField textField_mazeColumns;
     public MazeDisplayer mazeDisplayer;
@@ -61,65 +63,23 @@ public class MyViewController implements Initializable, IView, Observer {
 
     public void setViewModel(MyViewModel viewModel) {
         this.viewModel = viewModel;
+        this.viewModel.addObserver(this);
     }
 
     public void generateMaze() {
-        if(generator == null) {
-            generator = new MyModel();
-            viewModel = new MyViewModel(generator);
-            this.viewModel.addObserver(this);
-        }
 
         int rows = Integer.valueOf(textField_mazeRows.getText());
         int cols = Integer.valueOf(textField_mazeColumns.getText());
 
         viewModel.generateMaze(rows,cols);
-/*
-        mazeDisplayer.drawMaze(maze);
-        setPlayerPosition(0, 0);*/
     }
 
     public void solveMaze() {
         this.viewModel.solveMaze();
-/*        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setContentText("Solving maze...");
-        alert.show();
-       generator.solveMaze();*/
-
     }
 
-
-
     public void keyPressed(KeyEvent keyEvent) {
-/*        int row = mazeDisplayer.getPlayerRow();
-        int col = mazeDisplayer.getPlayerCol();*/
-
-        /*switch (keyEvent.getCode()) {
-            case UP -> row -= 1;
-            case DOWN -> row += 1;
-            case RIGHT -> col += 1;
-            case LEFT -> col -= 1;
-            case NUMPAD8 -> row -= 1;
-            case NUMPAD2 -> row += 1;
-            case NUMPAD6 -> col += 1;
-            case NUMPAD4 -> col -= 1;
-            case NUMPAD9 -> {
-                row -= 1;  col += 1;
-            }
-            case NUMPAD3 -> {
-                row += 1;  col += 1;
-            }
-            case NUMPAD1 -> {
-                row += 1;  col -= 1;
-            }
-            case NUMPAD7 -> {
-                row -= 1;  col -= 1;
-            }
-
-        }*/
-
         this.viewModel.moveCharacter(keyEvent);
-//        setPlayerPosition(row, col);
         keyEvent.consume();
     }
 
@@ -150,10 +110,20 @@ public class MyViewController implements Initializable, IView, Observer {
     }
 
     @Override
+
     public void update(Observable o, Object arg) {
         if(o instanceof MyViewModel)
         {
-            if(maze == null)//generateMaze
+
+            String change = (String)arg;
+            switch(change){
+
+                case "maze generated" -> mazeGenerated();
+                case "player moved" -> playerMoved();
+                case "maze solved" -> mazeSolved();
+                case "invalid step" -> invalidStep();
+            }
+            /*if(maze == null)//generateMaze
             {
                 this.maze = this.viewModel.getMaze();
                 drawMaze();
@@ -189,8 +159,25 @@ public class MyViewController implements Initializable, IView, Observer {
                         alert.show();
                     }
                 }
-            }
+            }*/
         }
+    }
+
+    private void invalidStep() {
+        System.out.println("invalid");
+    }
+
+    private void mazeSolved() {
+        mazeDisplayer.setSolution(viewModel.getSolution());
+    }
+
+    private void mazeGenerated() {
+        mazeDisplayer.drawMaze(viewModel.getMaze());
+        playerMoved();
+    }
+
+    private void playerMoved() {
+        setPlayerPosition(viewModel.getRowChar(), viewModel.getColChar());
     }
 
     public void MusicCheckBox(ActionEvent actionEvent) {
