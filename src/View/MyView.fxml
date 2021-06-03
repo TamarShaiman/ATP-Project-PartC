@@ -3,7 +3,6 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
@@ -21,8 +20,8 @@
 <GridPane fx:controller="View.MyViewController"
           xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="10" vgap="10">
 </GridPane>-->
-<?import ViewModel.MyViewModel?>
 
+<?import View.*?>
 <BorderPane onMouseClicked="#mouseClicked" prefHeight="408.0" prefWidth="594.0" stylesheets="@MainStyle.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.MyViewController">
     <left>
         <VBox prefHeight="200.0" prefWidth="178.0" spacing="5.0" BorderPane.alignment="CENTER">
@@ -51,8 +50,6 @@
                     <Label fx:id="playerRow" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                     <Label fx:id="playerCol" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                 </GridPane>
-            <CheckBox mnemonicParsing="false" text="Music" selected="true" onAction="#MusicCheckBox"/>
-            <CheckBox mnemonicParsing="false" text="Sounds" selected="true" />
             </children>
             <padding>
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -102,7 +99,7 @@
     <center>
         <Pane BorderPane.alignment="CENTER">
             <children>
-                <MyViewModel fx:id="mazeDisplayer" height="400.0" imageFileNamePlayer="./resources/images/player.jpeg" imageFileNameWall="./resources/images/wall.png" onKeyPressed="#keyPressed" width="400.0" />
+                <MazeDisplayer fx:id="mazeDisplayer" height="400.0" imageFileNamePlayer="./resources/images/player.jpeg" imageFileNameWall="./resources/images/wall.png" onKeyPressed="#keyPressed" width="400.0" />
             </children>
             <padding>
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
