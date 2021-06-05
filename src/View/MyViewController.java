@@ -94,7 +94,7 @@ public class MyViewController implements Initializable, IView, Observer {
     }
 
 
-    public void setPlayerPosition(int row, int col){
+    public void setPlayerPosition(int row, int col){//
         mazeDisplayer.setPlayerPosition(row, col);
         setUpdatePlayerRow(row);
         setUpdatePlayerCol(col);
