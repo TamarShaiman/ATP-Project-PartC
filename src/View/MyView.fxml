@@ -112,7 +112,7 @@
         <Pane BorderPane.alignment="CENTER">
             <children>
                 <MazeDisplayer fx:id="mazeDisplayer" height="400.0"
-                               imageFileNamePlayer="./resources/images/player.jpeg"
+                               imageFileNamePlayer="./resources/images/gretel_front.png"
                                imageFileNamePath="./resources/images/path.jpg"
                                imageFileNameWall="./resources/images/wall.png"
                                onKeyPressed="#keyPressed"

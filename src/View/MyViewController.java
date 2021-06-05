@@ -95,10 +95,9 @@ public class MyViewController implements Initializable, IView, Observer {
 
 
     public void setPlayerPosition(int row, int col){
-        if(mazeDisplayer.setPlayerPosition(row, col) ) {
-            setUpdatePlayerRow(row);
-            setUpdatePlayerCol(col);
-        }
+        mazeDisplayer.setPlayerPosition(row, col);
+        setUpdatePlayerRow(row);
+        setUpdatePlayerCol(col);
     }
 
     public void openFile(ActionEvent actionEvent) {
@@ -126,47 +125,11 @@ public class MyViewController implements Initializable, IView, Observer {
 
                 case "maze generated" -> mazeGenerated();
                 case "player moved" -> playerMoved();
+                case "player moved right" -> playerMovedRight();
                 case "maze solved" -> mazeSolved();
                 case "invalid step" -> invalidStep();
                 case "load maze" -> loadedMaze();
             }
-            /*if(maze == null)//generateMaze
-            {
-                this.maze = this.viewModel.getMaze();
-                drawMaze();
-
-            }
-            else {
-                int[][] viewModelMaze = this.viewModel.getMaze();
-                if (this.maze != this.viewModel.getMaze()){
-                    this.maze = viewModelMaze;
-                    drawMaze();
-                }
-
-                else{
-                    int rowChar = mazeDisplayer.getPlayerRow();
-                    int colChar = mazeDisplayer.getPlayerCol();
-                    if (rowChar != this.viewModel.getRowChar() || colChar != this.viewModel.getColChar()) {
-                        if (this.viewModel.getRowChar() == this.viewModel.getRowGoal() && this.viewModel.getColChar() == this.viewModel.getColGoal()) { //character has reached the goal
-                            System.out.println("Goal! woohoo!!");
-                            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                            alert.setContentText("Goal! woohoo!!");
-                            alert.show();
-                        } else {
-                            setUpdatePlayerRow(this.viewModel.getRowChar());
-                            setUpdatePlayerCol(this.viewModel.getColChar());
-                            mazeDisplayer.setPlayerPosition(this.viewModel.getRowChar(),this.viewModel.getColChar());
-                        }
-                        drawMaze();
-
-                    }
-                    else{
-                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                        alert.setContentText("invalid step");
-                        alert.show();
-                    }
-                }
-            }*/
         }
     }
 
@@ -189,6 +152,10 @@ public class MyViewController implements Initializable, IView, Observer {
     }
 
     private void playerMoved() {
+        setPlayerPosition(viewModel.getRowChar(), viewModel.getColChar());
+    }
+
+    private void playerMovedRight() {
         setPlayerPosition(viewModel.getRowChar(), viewModel.getColChar());
     }
 
