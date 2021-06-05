@@ -182,7 +182,7 @@ public class MyModel extends Observable implements IModel {
                   if(colChar!=mazeTable[0].length-1 && mazeTable[rowChar][colChar+1]==0) {
                       colChar++;
                       arg = "player moved";
-                  }
+                  }//
                 break;
             case 4: //Right Down
                   if(colChar!=mazeTable[0].length-1 && rowChar!=mazeTable.length+1 && mazeTable[rowChar+1][colChar+1]==0) {
