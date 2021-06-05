@@ -2,14 +2,19 @@ package View;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
+import javafx.scene.Group;
 import javafx.scene.control.Alert;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.media.AudioClip;
+import javafx.scene.media.MediaView;
 import javafx.stage.FileChooser;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -24,9 +29,7 @@ import Model.*;
 
 
 public class MyViewController implements Initializable, IView, Observer {
-/*
-    public MyModel generator;
-*/
+
     public TextField textField_mazeRows;
     public TextField textField_mazeColumns;
     public MazeDisplayer mazeDisplayer;
@@ -36,7 +39,10 @@ public class MyViewController implements Initializable, IView, Observer {
     private int [][] maze;
     StringProperty updatePlayerRow = new SimpleStringProperty();
     StringProperty updatePlayerCol = new SimpleStringProperty();
-
+    String musicFile = "./resources/Music/Music1.mp3";// For example
+    File file = new File(musicFile);
+    Media sound = new Media(file.toURI().toString());
+    MediaPlayer mediaPlayer = new MediaPlayer(sound);
 
 
     public String getUpdatePlayerRow() {
@@ -187,11 +193,20 @@ public class MyViewController implements Initializable, IView, Observer {
     }
 
     public void MusicCheckBox(ActionEvent actionEvent) {
-        String musicFile = "resources/Music/Music1.mp3";     // For example
+        if (actionEvent.getSource() instanceof CheckBox) {
+            CheckBox checkBox = (CheckBox) actionEvent.getSource();
+            {
 
-        Media sound = new Media(new File(musicFile).toURI().toString());
-        MediaPlayer mediaPlayer = new MediaPlayer(sound);
-        mediaPlayer.play();
+                if (checkBox.isSelected()) {
+                    mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+                    mediaPlayer.play();
+                }
+                else{
+                    mediaPlayer.stop();
+
+                }
+            }
+        }
     }
 
     public void saveMaze(ActionEvent actionEvent) {
@@ -201,5 +216,6 @@ public class MyViewController implements Initializable, IView, Observer {
     public void loadMaze(ActionEvent actionEvent) {
         this.viewModel.loadMaze();
     }
+
 }
 

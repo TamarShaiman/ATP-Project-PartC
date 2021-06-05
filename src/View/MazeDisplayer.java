@@ -7,6 +7,7 @@ import javafx.beans.property.StringProperty;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.media.Media;
 import javafx.scene.paint.Color;
 
 import java.io.FileInputStream;
