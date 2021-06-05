@@ -95,7 +95,7 @@ public class MyViewController implements Initializable, IView, Observer {
     }
 
 
-    public void setPlayerPosition(int row, int col){
+    public void setPlayerPosition(int row, int col){//
         mazeDisplayer.setPlayerPosition(row, col);
         setUpdatePlayerRow(row);
         setUpdatePlayerCol(col);
@@ -118,7 +118,6 @@ public class MyViewController implements Initializable, IView, Observer {
 
                 case "maze generated" -> mazeGenerated();
                 case "player moved" -> playerMoved();
-                case "player moved right" -> playerMovedRight();
                 case "maze solved" -> mazeSolved();
                 case "invalid step" -> invalidStep();
                 case "load maze" -> loadedMaze();
@@ -150,10 +149,6 @@ public class MyViewController implements Initializable, IView, Observer {
     }
 
     private void playerMoved() {
-        setPlayerPosition(viewModel.getRowChar(), viewModel.getColChar());
-    }
-
-    private void playerMovedRight() {
         setPlayerPosition(viewModel.getRowChar(), viewModel.getColChar());
     }
 
