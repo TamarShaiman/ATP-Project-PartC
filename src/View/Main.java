@@ -4,18 +4,10 @@ import Model.IModel;
 import Model.MyModel;
 import ViewModel.MyViewModel;
 import javafx.application.Application;
-import javafx.concurrent.Task;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.media.AudioClip;
 import javafx.stage.Stage;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
-import javafx.scene.media.MediaView;
-import javafx.stage.Stage;
-
-import java.io.File;
 
 public class Main extends Application {
 
@@ -31,7 +23,7 @@ public class Main extends Application {
         MyViewModel viewModel = new MyViewModel(model);
         MyViewController view = fxmlLoader.getController(); // TODO; need to change to IView
         view.setViewModel(viewModel);
-        view.mediaPlayer.setAutoPlay(true);
+        view.mediaPlayerMusic.setAutoPlay(true);
 
     }
     public static void main(String[] args) {

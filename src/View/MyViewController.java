@@ -2,19 +2,13 @@ package View;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
-import javafx.scene.Group;
-import javafx.scene.control.Alert;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.media.AudioClip;
-import javafx.scene.media.MediaView;
 import javafx.stage.FileChooser;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -23,9 +17,8 @@ import java.net.URL;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.ResourceBundle;
-import algorithms.mazeGenerators.*;
+
 import ViewModel.*;
-import Model.*;
 
 
 public class MyViewController implements Initializable, IView, Observer {
@@ -39,10 +32,18 @@ public class MyViewController implements Initializable, IView, Observer {
     private int [][] maze;
     StringProperty updatePlayerRow = new SimpleStringProperty();
     StringProperty updatePlayerCol = new SimpleStringProperty();
-    String musicFile = "./resources/Music/Music1.mp3";// For example
-    File file = new File(musicFile);
-    Media sound = new Media(file.toURI().toString());
-    MediaPlayer mediaPlayer = new MediaPlayer(sound);
+
+    Boolean soundCheck = true;
+
+    String musicFileMusic = "./resources/Music/Music1.mp3";// For example
+    File file = new File(musicFileMusic);
+    Media music = new Media(file.toURI().toString());
+    MediaPlayer mediaPlayerMusic = new MediaPlayer(music);
+
+    String musicFileSound = "./resources/Sound/failureSound.mp3";// For example
+    File fileSound = new File(musicFileSound);
+    Media sound = new Media(fileSound.toURI().toString());
+    MediaPlayer mediaPlayerSound = new MediaPlayer(sound);
 
 
     public String getUpdatePlayerRow() {
@@ -100,14 +101,6 @@ public class MyViewController implements Initializable, IView, Observer {
         setUpdatePlayerCol(col);
     }
 
-    public void openFile(ActionEvent actionEvent) {
-        FileChooser fc = new FileChooser();
-        fc.setTitle("Open maze");
-        fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("Maze files (*.maze)", "*.maze"));
-        fc.setInitialDirectory(new File("./resources"));
-        File chosen = fc.showOpenDialog(null);
-        //...
-    }
 
     public void drawMaze()
     {
@@ -139,7 +132,12 @@ public class MyViewController implements Initializable, IView, Observer {
     }
 
     private void invalidStep() {
+        if(soundCheck){
+        mediaPlayerSound.play();
+        mediaPlayerSound.seek(mediaPlayerSound.getStartTime());
+        }
         System.out.println("invalid");
+
     }
 
     private void mazeSolved() {
@@ -163,14 +161,12 @@ public class MyViewController implements Initializable, IView, Observer {
         if (actionEvent.getSource() instanceof CheckBox) {
             CheckBox checkBox = (CheckBox) actionEvent.getSource();
             {
-
                 if (checkBox.isSelected()) {
-                    mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
-                    mediaPlayer.play();
+                    mediaPlayerMusic.setCycleCount(MediaPlayer.INDEFINITE);
+                    mediaPlayerMusic.play();
                 }
                 else{
-                    mediaPlayer.stop();
-
+                    mediaPlayerMusic.stop();
                 }
             }
         }
@@ -184,5 +180,18 @@ public class MyViewController implements Initializable, IView, Observer {
         this.viewModel.loadMaze();
     }
 
+    public void SoundCheckBox(ActionEvent actionEvent) {
+        if (actionEvent.getSource() instanceof CheckBox) {
+            CheckBox checkBox = (CheckBox) actionEvent.getSource();
+            {
+                if (checkBox.isSelected()) {
+                    soundCheck = true;
+                }
+                else{
+                    soundCheck = false;
+                }
+            }
+        }
+    }
 }
 

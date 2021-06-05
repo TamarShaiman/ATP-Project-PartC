@@ -61,7 +61,7 @@
                     <Label fx:id="playerCol" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                 </GridPane>
             <CheckBox mnemonicParsing="false" text="Music" selected="true" onAction="#MusicCheckBox"/>
-            <CheckBox mnemonicParsing="false" text="Sounds" selected="true" />
+            <CheckBox mnemonicParsing="false" text="Sounds" selected="true" onAction="#SoundCheckBox"/>
             </children>
             <padding>
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
