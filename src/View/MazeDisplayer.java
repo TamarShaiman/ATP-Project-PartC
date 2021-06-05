@@ -276,7 +276,7 @@ public class MazeDisplayer extends Canvas {
             }
             catch (FileNotFoundException e) {
                 System.out.println("There is no player image file");
-            }
+            }//
         }
 
         else if(prevRow == playerRow && prevCol == playerCol+1) { //Left
