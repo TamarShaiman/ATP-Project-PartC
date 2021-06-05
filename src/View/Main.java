@@ -33,22 +33,6 @@ public class Main extends Application {
         view.setViewModel(viewModel);
         view.mediaPlayer.setAutoPlay(true);
 
-
-    /*    String musicFile = "./resources/Music/Music1.mp3";// For example
-        File file = new File(musicFile);
-        Media sound = new Media(file.toURI().toString());
-        MediaPlayer mediaPlayer = new MediaPlayer(sound);
-        mediaPlayer.setAutoPlay(true);
-        mediaPlayer.play();
-        primaryStage.setOnCloseRequest(windowEvent -> {
-            mediaPlayer.stop();
-        });*/
-
-
-/*
-        view.MusicCheckBox();
-*/
-
     }
     public static void main(String[] args) {
         launch(args);
