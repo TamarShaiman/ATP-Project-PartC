@@ -287,11 +287,12 @@ public class MyModel extends Observable implements IModel {
 
     @Override
     public void loadMaze() {
-        FileChooser chooser = new FileChooser();
-        chooser.getExtensionFilters().add( new FileChooser.ExtensionFilter("Mazes Files","*.maze"));
-        chooser.setInitialFileName("maze.maze");
-        chooser.setTitle("Load Maze");
-        File file = chooser.showOpenDialog((Window)null);
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().add( new FileChooser.ExtensionFilter("Mazes Files (*.maze)","*.maze"));
+        fileChooser.setInitialFileName("maze.maze");
+        fileChooser.setTitle("Load Maze");
+        fileChooser.setInitialDirectory(new File("./resources"));
+        File file = fileChooser.showOpenDialog((Window)null);
         if (file != null) {
             try {
                 ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(file));
