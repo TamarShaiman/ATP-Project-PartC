@@ -112,7 +112,17 @@
         <Pane BorderPane.alignment="CENTER">
             <children>
                 <MazeDisplayer fx:id="mazeDisplayer" height="400.0"
+                               imageFileNameVoid="./resources/images/void.png"
                                imageFileNamePlayer="./resources/images/gretel_front.png"
+                               imageFileNamePlayerRight1="./resources/images/gretel_right_1.png"
+                               imageFileNamePlayerRight2="./resources/images/gretel_right_2.png"
+                               imageFileNamePlayerLeft1="./resources/images/gretel_left_1.png"
+                               imageFileNamePlayerLeft2="./resources/images/gretel_left_2.png"
+                               imageFileNamePlayerFront1="./resources/images/gretel_front_1.png"
+                               imageFileNamePlayerFront2="./resources/images/gretel_front_2.png"
+                               imageFileNamePlayerBack="./resources/images/gretel_back.png"
+                               imageFileNamePlayerBack1="./resources/images/gretel_back_1.png"
+                               imageFileNamePlayerBack2="./resources/images/gretel_back_2.png"
                                imageFileNamePath="./resources/images/path.jpg"
                                imageFileNameWall="./resources/images/wall.png"
                                onKeyPressed="#keyPressed"
