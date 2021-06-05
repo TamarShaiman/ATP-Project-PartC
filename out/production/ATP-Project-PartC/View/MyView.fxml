@@ -46,7 +46,9 @@
                     <Label text="Maze columns:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
                     <TextField fx:id="textField_mazeRows" text="10" GridPane.columnIndex="1" GridPane.rowIndex="0" />
                     <TextField fx:id="textField_mazeColumns" text="10" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                    <Button onAction="#generateMaze" prefHeight="25.0" prefWidth="167.0" stylesheets="@MainStyle.css" text="Generate Maze" textFill="#171717" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="2">
+                    <Button onAction="#generateMaze" prefHeight="25.0" prefWidth="167.0" stylesheets="@MainStyle.css"
+                            text="Generate Maze" textFill="#171717" GridPane.columnIndex="0" GridPane.columnSpan="2"
+                            GridPane.rowIndex="2">
                   <cursor>
                      <Cursor fx:constant="DEFAULT" />
                   </cursor>
@@ -60,8 +62,8 @@
                     <Label fx:id="playerRow" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                     <Label fx:id="playerCol" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                 </GridPane>
-            <CheckBox mnemonicParsing="false" text="Music" />
-            <CheckBox mnemonicParsing="false" text="Sounds" />
+            <CheckBox mnemonicParsing="false" text="Music" selected="true" />
+            <CheckBox mnemonicParsing="false" text="Sounds" selected="true" />
             </children>
             <padding>
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -117,6 +119,7 @@
                                imageFileNameWall="./resources/images/wall.png"
                                onKeyPressed="#keyPressed"
                                width="400.0"/>
+
             </children>
             <padding>
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
