@@ -2,38 +2,6 @@
     -fx-background-color: yellowgreen    ;
 }
 
-/*Button {
-    -fx-text-fill: white;
-    -fx-font-family: 'Helvetica', Arial, sans-serif;
-    -fx-font-weight: bold;
-    -fx-background-color: linear-gradient(#e9967a, #f08080);
-    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
-}
-
-Button:hover {
-    -fx-background-color: -fx-shadow-highlight-color, -fx-outer-border, -fx-inner-border, -fx-body-color;
-    -fx-background-insets: 0 0 -1 0, 0, 1, 2;
-    -fx-background-radius: 3px, 3px, 2px, 1px;
-    -fx-padding: 0.333333em 0.666667em 0.333333em 0.666667em; *//* 4 8 4 8 *//*
-    -fx-text-fill: -fx-text-base-color;
-    -fx-alignment: CENTER;
-    -fx-content-display: LEFT;
-}*/
-
-/*
-Button:pressed {
-    -fx-background-color: -fx-shadow-highlight-color, -fx-outer-border, -fx-inner-border, -fx-body-color;
-    -fx-background-insets: 0 0 -1 0, 0, 1, 2;
-    -fx-background-radius: 3px, 3px, 2px, 1px;
-    -fx-padding: 0.333333em 0.666667em 0.333333em 0.666667em; */
-/* 4 8 4 8 *//*
-
-    -fx-text-fill: -fx-text-base-color;
-    -fx-alignment: CENTER;
-    -fx-content-display: LEFT;
-}*/
-
-
 Button
 {
     -fx-padding: 2 2 7 2;
@@ -41,8 +9,8 @@ Button
     -fx-background-radius: 8;
     -fx-background-color:
             linear-gradient(from 0% 93% to 0% 100%,yellow 0%,orange 100%),
-             yellow,
-             orange,
+            yellow,
+            orange,
             radial-gradient(center 50% 50%, radius 100%,orange,orange);
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.75),4,0,0,1);
     -fx-font-weight: bold;
@@ -62,8 +30,9 @@ Button:hover
 
 Button:pressed
 {
-     -fx-padding: 2 2 7 2;
-     -fx-background-insets: 2 0 0 0,2 0 3 0,2 0 4 0,2 0 5 0;
-     -fx-text-insets: 2 0 0 0,2 0 3 0,2 0 4 0,2 0 5 0;
+    -fx-padding: 2 2 7 2;
+    -fx-background-insets: 2 0 0 0,2 0 3 0,2 0 4 0,2 0 5 0;
+    -fx-text-insets: 2 0 0 0,2 0 3 0,2 0 4 0,2 0 5 0;
 
 }
+
