@@ -275,7 +275,7 @@ public class MazeDisplayer extends Canvas {
                 images[1] = new Image(new FileInputStream(getImageFileNamePlayerRight2()));
             }
             catch (FileNotFoundException e) {
-                System.out.println("There is no player image file");//
+                System.out.println("There is no player image file");
             }
         }
 
