@@ -50,7 +50,7 @@ public class MazeDisplayer extends Canvas {
     public void setPlayerPosition(int row, int col) {
         this.playerRow = row;
         this.playerCol = col;
-        draw();
+        draw();//
     }
 
     private boolean checkBorder(int row, int col) {
