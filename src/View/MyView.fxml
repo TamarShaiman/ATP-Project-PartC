@@ -125,6 +125,7 @@
                                imageFileNamePlayerBack2="./resources/images/gretel_back_2.png"
                                imageFileNamePath="./resources/images/path.jpg"
                                imageFileNameWall="./resources/images/wall.png"
+                               imageFileNameBreadCrumb="./resources/images/Bread_crumb.png"
                                onKeyPressed="#keyPressed"
                                width="400.0"/>
             </children>
