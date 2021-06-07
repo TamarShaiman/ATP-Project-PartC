@@ -40,7 +40,6 @@ public class MyViewModel extends Observable implements Observer {
         return solutionPath;
     }
 
-
     private void mazeGenerated() {
         this.maze = model.getMaze();
     }

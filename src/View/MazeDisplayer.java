@@ -1,5 +1,8 @@
 package View;
 
+import algorithms.mazeGenerators.Position;
+import algorithms.search.AState;
+import algorithms.search.MazeState;
 import algorithms.search.Solution;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -30,10 +33,10 @@ public class MazeDisplayer extends Canvas {
     private int goalCol;
     private Solution solution;
 
-
     // wall and player images:
     StringProperty imageFileNameWall = new SimpleStringProperty();
     StringProperty imageFileNamePath = new SimpleStringProperty();
+    StringProperty imageFileNameGoal = new SimpleStringProperty();
     StringProperty imageFileNamePlayer = new SimpleStringProperty();
     StringProperty imageFileNamePlayerRight1 = new SimpleStringProperty();
     StringProperty imageFileNamePlayerRight2 = new SimpleStringProperty();
@@ -72,16 +75,18 @@ public class MazeDisplayer extends Canvas {
         draw(hasMoved, row, col, prevRow, prevCol);
     }
 
-    private boolean checkBorder(int row, int col) {
+ /*   private boolean checkBorder(int row, int col) {
         if(row >= 0  && row < maze.length && col >= 0  && col < maze[0].length){
             return true;
         }
         return false;
-    }
+    }*/
 
     public String getImageFileNameWall() {
         return imageFileNameWall.get();
     }
+
+    public String getImageFileNameGoal() { return imageFileNameGoal.get(); }
 
     public String getImageFileNamePath() {
         return imageFileNamePath.get();
@@ -91,12 +96,20 @@ public class MazeDisplayer extends Canvas {
         return imageFileNameWall.get();
     }
 
+    public String imageFileNameGoalProperty() {
+        return imageFileNameGoal.get();
+    }
+
     public String imageFileNamePathProperty() {
         return imageFileNamePath.get();
     }
 
     public void setImageFileNameWall(String imageFileNameWall) {
         this.imageFileNameWall.set(imageFileNameWall);
+    }
+
+    public void setImageFileNameGoal(String imageFileNameGoal) {
+        this.imageFileNameGoal.set(imageFileNameGoal);
     }
 
     public void setImageFileNamePath(String imageFileNamePath) {
@@ -144,9 +157,7 @@ public class MazeDisplayer extends Canvas {
         return imageFileNamePlayerBack.get();
     }
 
-    public String getImageFileNameVoid() {
-        return imageFileNameVoid.get();
-    }
+    public String getImageFileNameVoid() { return imageFileNameVoid.get(); }
 
     public String imageFileNamePlayerProperty() {
         return imageFileNamePlayer.get();
@@ -461,24 +472,63 @@ public class MazeDisplayer extends Canvas {
         graphicsContext.setFill(Color.RED);
 
         Image pathImage = null;
-        try{
+        Image goalImage = null;
+
+        try {
             pathImage = new Image(new FileInputStream(getImageFileNamePath()));
+            goalImage = new Image(new FileInputStream(getImageFileNameGoal()));
         } catch (FileNotFoundException e) {
             System.out.println("There is no path image file");
         }
 
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
-                if(maze[i][j] == 0){
+                if (maze[i][j] == 0) {
                     //if it is a path:
                     double x = j * cellWidth;
                     double y = i * cellHeight;
-                    if(pathImage == null)
+                    if (pathImage == null)
                         graphicsContext.fillRect(x, y, cellWidth, cellHeight);
                     else
                         graphicsContext.drawImage(pathImage, x, y, cellWidth, cellHeight);
                 }
             }
         }
+        if (goalImage != null) {
+            double x = goalCol * cellWidth;
+            double y = goalRow * cellHeight;
+            graphicsContext.drawImage(goalImage, x, y, cellWidth, cellHeight);
+        }
+    }
+    public int getStartRow() {
+        return startRow;
+    }
+
+    public void setStartRow(int startRow) {
+        this.startRow = startRow;
+    }
+
+    public int getStartCol() {
+        return startCol;
+    }
+
+    public void setStartCol(int startCol) {
+        this.startCol = startCol;
+    }
+
+    public int getGoalRow() {
+        return goalRow;
+    }
+
+    public void setGoalRow(int goalRow) {
+        this.goalRow = goalRow;
+    }
+
+    public int getGoalCol() {
+        return goalCol;
+    }
+
+    public void setGoalCol(int goalCol) {
+        this.goalCol = goalCol;
     }
 }

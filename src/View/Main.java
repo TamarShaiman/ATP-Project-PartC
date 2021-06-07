@@ -18,7 +18,7 @@ public class Main extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MyView.fxml"));
         Parent root = fxmlLoader.load();
         primaryStage.setTitle("Hansel and Gretel Maze Game");
-        Scene primeScene = new  Scene(root, 1000, 600);
+        Scene primeScene = new  Scene(root, 800, 600);
         primaryStage.setScene(primeScene);
 
         IModel model = new MyModel();

@@ -167,6 +167,10 @@ public class MyViewController implements Initializable, IView, Observer {
     }
 
     private void mazeGenerated() {
+        mazeDisplayer.setGoalCol(viewModel.getColGoal());
+        mazeDisplayer.setGoalRow(viewModel.getRowGoal());
+        mazeDisplayer.setStartCol(viewModel.getColStart());
+        mazeDisplayer.setStartRow(viewModel.getRowStart());
         mazeDisplayer.drawMaze(viewModel.getMaze());
         playerMoved();
     }
@@ -312,6 +316,8 @@ public class MyViewController implements Initializable, IView, Observer {
                 System.exit(0);
             }
         }
+        else{
+        mazeDisplayer.drawMaze(viewModel.getMaze());}
     }
 }
 

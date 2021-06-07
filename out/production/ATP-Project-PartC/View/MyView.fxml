@@ -134,6 +134,7 @@
                                imageFileNamePlayerBack2="./resources/images/gretel_back_2.png"
                                imageFileNamePath="./resources/images/path.jpg"
                                imageFileNameWall="./resources/images/wall.png"
+                               imageFileNameGoal="./resources/images/hanselandgretel.jpg"
                                onKeyPressed="#keyPressed"
                                onMouseDragged="#mouseDragged"
                                width="400.0"/>
