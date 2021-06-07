@@ -3,6 +3,7 @@ package ViewModel;
 import Model.IModel;
 import View.MyViewController;
 import algorithms.search.Solution;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
 import java.util.Observable;
@@ -59,7 +60,7 @@ public class MyViewModel extends Observable implements Observer {
         this.model.generateMaze(row,col);
     }
 
-    public void moveCharacter(KeyEvent keyEvent)
+    public void moveCharacter(KeyCode keyCode)
     {
         /*
             direction = 1 -> Up
@@ -73,7 +74,7 @@ public class MyViewModel extends Observable implements Observer {
          */
         int direction = -1;
 
-        switch (keyEvent.getCode()){
+        switch (keyCode){
             case UP -> direction = 1;
             case NUMPAD8 -> direction = 1;
             case NUMPAD9-> direction = 2;

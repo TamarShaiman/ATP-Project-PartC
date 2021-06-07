@@ -135,6 +135,7 @@
                                imageFileNamePath="./resources/images/path.jpg"
                                imageFileNameWall="./resources/images/wall.png"
                                onKeyPressed="#keyPressed"
+                               onMouseDragged="#mouseDragged"
                                width="400.0"/>
             </children>
             <padding>
