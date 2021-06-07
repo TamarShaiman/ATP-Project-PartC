@@ -4,10 +4,12 @@ import Model.IModel;
 import Model.MyModel;
 import ViewModel.MyViewModel;
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 public class Main extends Application {
 
@@ -26,6 +28,15 @@ public class Main extends Application {
         view.mediaPlayerMusic.setAutoPlay(true);
 
         view.setResizeEvent(primeScene);
+        primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent windowEvent) {
+                view.exitProgram();
+            }
+        });
+
+
+
         primaryStage.show();
 
     }

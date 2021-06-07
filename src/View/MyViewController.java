@@ -292,7 +292,7 @@ public class MyViewController implements Initializable, IView, Observer {
         mouseEvent.consume();
     }
 
-    public void exitProgram( ActionEvent actionEvent) {
+    public void exitProgram( ) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION,"Are you sure you want to exit Hansel and Gretel maze game ?");
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK){
