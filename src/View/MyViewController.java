@@ -7,6 +7,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
@@ -108,7 +109,7 @@ public class MyViewController implements Initializable, IView, Observer {
     }
 
     public void keyPressed(KeyEvent keyEvent) {
-        this.viewModel.moveCharacter(keyEvent);
+        this.viewModel.moveCharacter(keyEvent.getCode());
         keyEvent.consume();
     }
 
@@ -268,41 +269,49 @@ public class MyViewController implements Initializable, IView, Observer {
     }
 
     public void mouseDragged(MouseEvent mouseEvent) {
+        if(viewModel.getMaze() != null) {
+        // calculate mouse position by X and Y
+            int rows = viewModel.getMaze().length;
+            int cols = viewModel.getMaze()[0].length;
+            int maxOfRowsOrCols = Math.max(rows,cols);
+            double newX = calculateMouse(maxOfRowsOrCols,mazeDisplayer.getWidth(), viewModel.getMaze().length,mouseEvent.getX(),mazeDisplayer.getWidth() / maxOfRowsOrCols);
+            double newY = calculateMouse(maxOfRowsOrCols,mazeDisplayer.getHeight(), viewModel.getMaze()[0].length,mouseEvent.getY(),mazeDisplayer.getHeight() / maxOfRowsOrCols);
+            double viewModelX = viewModel.getColChar();
+            double viewModelY = viewModel.getRowChar();
+            KeyCode keyCode = chooseDirection(newX,newY,viewModelX,viewModelY);
+            this.viewModel.moveCharacter(keyCode);
 
-        System.out.println("sysysys");
-/*        mazeDisplayer.widthProperty().bind(mazePane.widthProperty());
-        mazeDisplayer.heightProperty().bind(mazePane.heightProperty());
-        scrollBarHor.valueProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
-                mazeDisplayer.setLayoutX(t1.doubleValue());
-                mazePane.setLayoutX(t1.doubleValue());
 
-            }
-        });
-        scrollBarVer.valueProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
-                mazeDisplayer.setLayoutY(t1.doubleValue());
-                mazePane.setLayoutY(t1.doubleValue());
-
-            }
-        });
-*/
+        }
         mouseEvent.consume();
+    }
+
+    private KeyCode chooseDirection(double newX, double newY, double viewModelX, double viewModelY) {
+        KeyCode keyCode = KeyCode.NUMPAD0;
+        if (newX == viewModelX && newY > viewModelY){keyCode = KeyCode.NUMPAD2; }
+        else if (newX == viewModelX && newY < viewModelY){keyCode = KeyCode.NUMPAD8; }
+        else if (newX > viewModelX && newY == viewModelY){keyCode = KeyCode.NUMPAD6; }
+        else if (newX < viewModelX && newY == viewModelY){keyCode = KeyCode.NUMPAD4; }
+        return keyCode;
+    }
+
+    private double calculateMouse(int maxOfRowsOrCols, double sizeOfMaze, int length, double mouseMove, double dist) {
+        double cellSize = sizeOfMaze / maxOfRowsOrCols;
+        double start = (sizeOfMaze/2 - (cellSize*length / 2)) / cellSize;
+        double mouseCalc = (int) ((mouseMove) / (dist) - start);
+        return mouseCalc;
+
     }
 
     public void exitProgram( ) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION,"Are you sure you want to exit Hansel and Gretel maze game ?");
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK){
-            if(viewModel !=null){
+            if(viewModel != null){
                 viewModel.exitProgram();
                 System.exit(0);
             }
         }
-
-
     }
 }
 
