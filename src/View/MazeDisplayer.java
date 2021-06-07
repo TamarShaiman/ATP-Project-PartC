@@ -10,6 +10,7 @@ import javafx.scene.image.Image;
 import javafx.scene.media.Media;
 import javafx.scene.paint.Color;
 
+import java.awt.*;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
@@ -24,11 +25,11 @@ public class MazeDisplayer extends Canvas {
     private int goalCol;
     private Solution solution;
 
-
     // wall and player images:
     StringProperty imageFileNameWall = new SimpleStringProperty();
     StringProperty imageFileNamePath = new SimpleStringProperty();
     StringProperty imageFileNamePlayer = new SimpleStringProperty();
+
 
 
     public int getPlayerRow() {
@@ -53,12 +54,6 @@ public class MazeDisplayer extends Canvas {
         draw();//
     }
 
-    private boolean checkBorder(int row, int col) {
-        if(row >= 0  && row < maze.length && col >= 0  && col < maze[0].length){
-            return true;
-        }
-        return false;
-    }
 
     public String getImageFileNameWall() {
         return imageFileNameWall.get();
