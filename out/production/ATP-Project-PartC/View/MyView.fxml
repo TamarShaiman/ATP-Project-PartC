@@ -109,7 +109,13 @@
         </VBox>
     </top>
     <center>
-        <Pane BorderPane.alignment="CENTER">
+        <Pane fx:id="mazePane" onScroll="#scrollMaze" prefHeight="317.0" prefWidth="362.0" BorderPane.alignment="CENTER">
+            <!--
+            <ScrollPane fx:id="scrollPaneMaze" BorderPane.alignment="CENTER" pannable="true" />
+-->
+            <BorderPane.margin>
+                <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+            </BorderPane.margin>
             <children>
                 <MazeDisplayer fx:id="mazeDisplayer" height="400.0"
                                imageFileNameVoid="./resources/images/void.png"
