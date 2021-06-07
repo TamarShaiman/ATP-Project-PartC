@@ -286,6 +286,13 @@ public class MyModel extends Observable implements IModel {
     }
 
     @Override
+    public void exitProgram() {
+        mazeGeneratingServer.stop();
+        solveSearchProblemServer.stop();
+
+    }
+
+    @Override
     public void loadMaze() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add( new FileChooser.ExtensionFilter("Mazes Files (*.maze)","*.maze"));

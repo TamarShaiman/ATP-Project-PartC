@@ -131,4 +131,8 @@ public class MyViewModel extends Observable implements Observer {
     public void loadMaze() {
         this.model.loadMaze();
     }
+
+    public void exitProgram() {
+        model.exitProgram();
+    }
 }

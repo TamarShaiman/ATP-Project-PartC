@@ -26,4 +26,5 @@ public interface IModel {
      void savePlayer();
 
 
+    void exitProgram();
 }

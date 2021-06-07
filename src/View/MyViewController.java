@@ -1,13 +1,12 @@
 package View;
 
+import com.sun.media.jfxmediaimpl.platform.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
@@ -21,6 +20,7 @@ import java.io.File;
 import java.net.URL;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import ViewModel.*;
@@ -40,6 +40,8 @@ public class MyViewController implements Initializable, IView, Observer {
     public Pane mazePane;
     /*    public ScrollPane scrollPaneMaze;*/
     public BorderPane borderPane;
+
+    public Menu exitMenu;
 
     Boolean soundCheck = true;
 
@@ -76,6 +78,8 @@ public class MyViewController implements Initializable, IView, Observer {
         playerCol.textProperty().bind(updatePlayerCol);
         mazeDisplayer.widthProperty().bind(mazePane.widthProperty());
         mazeDisplayer.heightProperty().bind(mazePane.heightProperty());
+        mazeDisplayer.widthProperty().bind(borderPane.widthProperty());
+        mazeDisplayer.heightProperty().bind(borderPane.heightProperty());
 
     /*    scrollPaneMaze.prefHeightProperty().bind(mazeDisplayer.heightProperty());
         scrollPaneMaze.prefWidthProperty().bind(mazeDisplayer.widthProperty());
@@ -233,7 +237,6 @@ public class MyViewController implements Initializable, IView, Observer {
             scrollPaneMaze.getTransforms().add(newScale);*/
             mazePane.getTransforms().add(newScale);
             mazeDisplayer.getTransforms().add(newScale);
-
 /*
             scrollPaneMaze.setContent(mazeDisplayer);
 */
@@ -246,13 +249,10 @@ public class MyViewController implements Initializable, IView, Observer {
         mazeDisplayer.heightProperty().bind(mazePane.heightProperty());
 
         primeScene.widthProperty().addListener((observable, oldValue, newValue) -> {
-            mazeDisplayer.widthProperty().bind(mazePane.widthProperty());
             mazeDisplayer.drawMaze(viewModel.getMaze());
             System.out.println("Height: " + primeScene.getHeight() + " Width: " + primeScene.getWidth());
-
         });
         primeScene.heightProperty().addListener((observable, oldValue, newValue) -> {
-            mazeDisplayer.heightProperty().bind(mazePane.heightProperty());
             mazeDisplayer.drawMaze(viewModel.getMaze());
             System.out.println("Height: " + primeScene.getHeight() + " Width: " + primeScene.getWidth());
 
@@ -292,5 +292,17 @@ public class MyViewController implements Initializable, IView, Observer {
         mouseEvent.consume();
     }
 
+    public void exitProgram( ActionEvent actionEvent) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION,"Are you sure you want to exit Hansel and Gretel maze game ?");
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK){
+            if(viewModel !=null){
+                viewModel.exitProgram();
+                System.exit(0);
+            }
+        }
+
+
+    }
 }
 

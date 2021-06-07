@@ -25,7 +25,7 @@
 </GridPane>-->
 
 <?import View.MazeDisplayer?>
-<BorderPane onMouseClicked="#mouseClicked" prefHeight="408.0" prefWidth="594.0" stylesheets="@MainStyle.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.MyViewController">
+<BorderPane fx:id="borderPane" onMouseClicked="#mouseClicked" prefHeight="408.0" prefWidth="594.0" stylesheets="@MainStyle.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.MyViewController">
     <left>
         <VBox opacity="0.83" prefHeight="267.0" prefWidth="202.0" spacing="5.0" style="-fx-background-color: mistyrose;">
             <children>
@@ -101,7 +101,10 @@
                         </Menu>
                         <Menu mnemonicParsing="false" text="About">
                         </Menu>
-                        <Menu mnemonicParsing="false" text="Exit">
+                        <Menu mnemonicParsing="false" text="Exit" fx:id="exitMenu" >
+                            <items>
+                                <MenuItem mnemonicParsing="false" text="Exit Maze" onAction="#exitProgram"/>
+                            </items>
                         </Menu>
                     </menus>
                 </MenuBar>
