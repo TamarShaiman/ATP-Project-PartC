@@ -4,11 +4,16 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.ScrollEvent;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.transform.Scale;
 import javafx.stage.FileChooser;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -32,6 +37,9 @@ public class MyViewController implements Initializable, IView, Observer {
     private int [][] maze;
     StringProperty updatePlayerRow = new SimpleStringProperty();
     StringProperty updatePlayerCol = new SimpleStringProperty();
+    public Pane mazePane;
+    /*    public ScrollPane scrollPaneMaze;*/
+    public BorderPane borderPane;
 
     Boolean soundCheck = true;
 
@@ -66,6 +74,16 @@ public class MyViewController implements Initializable, IView, Observer {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         playerRow.textProperty().bind(updatePlayerRow);
         playerCol.textProperty().bind(updatePlayerCol);
+        mazeDisplayer.widthProperty().bind(mazePane.widthProperty());
+        mazeDisplayer.heightProperty().bind(mazePane.heightProperty());
+
+    /*    scrollPaneMaze.prefHeightProperty().bind(mazeDisplayer.heightProperty());
+        scrollPaneMaze.prefWidthProperty().bind(mazeDisplayer.widthProperty());
+        scrollPaneMaze.prefHeightProperty().bind(mazePane.heightProperty());
+        scrollPaneMaze.prefWidthProperty().bind(mazePane.widthProperty());
+        scrollPaneMaze.setContent(mazeDisplayer);
+        scrollPaneMaze.setFitToWidth(true);
+        scrollPaneMaze.setFitToHeight(true);*/
     }
 
     public void setViewModel(MyViewModel viewModel) {
@@ -188,5 +206,91 @@ public class MyViewController implements Initializable, IView, Observer {
             }
         }
     }
+
+    public void scrollMaze(ScrollEvent scrollEvent) {
+        double deltaY = scrollEvent.getDeltaY();
+        if(scrollEvent.isControlDown()) {
+            double zoomFactor = 1.05;
+            if (deltaY < 0) {
+                zoomFactor = 0.95;
+            }
+
+            Scale newScale = new Scale();
+/*
+            newScale.setX(scrollPaneMaze.getScaleX() * zoomFactor);
+            newScale.setY(scrollPaneMaze.getScaleY() * zoomFactor);
+            newScale.setPivotX(scrollPaneMaze.getScaleX());
+            newScale.setPivotY(scrollPaneMaze.getScaleY());
+*/
+
+            newScale.setX(mazePane.getScaleX() * zoomFactor);
+            newScale.setY(mazePane.getScaleY() * zoomFactor);
+            newScale.setPivotX(mazePane.getScaleX());
+            newScale.setPivotY(mazePane.getScaleY());
+/*
+            mazeDisplayer.widthProperty().bind(scrollPaneMaze.widthProperty());
+            mazeDisplayer.heightProperty().bind(scrollPaneMaze.heightProperty());
+            scrollPaneMaze.getTransforms().add(newScale);*/
+            mazePane.getTransforms().add(newScale);
+            mazeDisplayer.getTransforms().add(newScale);
+
+/*
+            scrollPaneMaze.setContent(mazeDisplayer);
+*/
+            scrollEvent.consume();
+        }
+    }
+    public void setResizeEvent(Scene primeScene) {
+
+        mazeDisplayer.widthProperty().bind(mazePane.widthProperty());
+        mazeDisplayer.heightProperty().bind(mazePane.heightProperty());
+
+        primeScene.widthProperty().addListener((observable, oldValue, newValue) -> {
+            mazeDisplayer.widthProperty().bind(mazePane.widthProperty());
+            mazeDisplayer.drawMaze(viewModel.getMaze());
+            System.out.println("Height: " + primeScene.getHeight() + " Width: " + primeScene.getWidth());
+
+        });
+        primeScene.heightProperty().addListener((observable, oldValue, newValue) -> {
+            mazeDisplayer.heightProperty().bind(mazePane.heightProperty());
+            mazeDisplayer.drawMaze(viewModel.getMaze());
+            System.out.println("Height: " + primeScene.getHeight() + " Width: " + primeScene.getWidth());
+
+        });
+    }
+
+    public Pane getMazePane() {
+        return mazePane;
+    }
+
+    public void setMazePane(Pane pane) {
+        this.mazePane = pane;
+    }
+
+    public void mouseDragged(MouseEvent mouseEvent) {
+
+        System.out.println("sysysys");
+/*        mazeDisplayer.widthProperty().bind(mazePane.widthProperty());
+        mazeDisplayer.heightProperty().bind(mazePane.heightProperty());
+        scrollBarHor.valueProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
+                mazeDisplayer.setLayoutX(t1.doubleValue());
+                mazePane.setLayoutX(t1.doubleValue());
+
+            }
+        });
+        scrollBarVer.valueProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
+                mazeDisplayer.setLayoutY(t1.doubleValue());
+                mazePane.setLayoutY(t1.doubleValue());
+
+            }
+        });
+*/
+        mouseEvent.consume();
+    }
+
 }
 

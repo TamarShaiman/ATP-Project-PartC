@@ -16,14 +16,17 @@ public class Main extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MyView.fxml"));
         Parent root = fxmlLoader.load();
         primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(root, 1000, 600));
-        primaryStage.show();
+        Scene primeScene = new  Scene(root, 1000, 600);
+        primaryStage.setScene(primeScene);
 
         IModel model = new MyModel();
         MyViewModel viewModel = new MyViewModel(model);
         MyViewController view = fxmlLoader.getController(); // TODO; need to change to IView
         view.setViewModel(viewModel);
         view.mediaPlayerMusic.setAutoPlay(true);
+
+        view.setResizeEvent(primeScene);
+        primaryStage.show();
 
     }
     public static void main(String[] args) {
