@@ -85,6 +85,11 @@ public class MyViewController implements Initializable, IView, Observer {
         this.viewModel.solveMaze();
     }
 
+    public void unsolveMaze() {
+        this.mazeDisplayer.showSolution = false;
+        drawMaze();
+    }
+
     public void keyPressed(KeyEvent keyEvent) {
         this.viewModel.moveCharacter(keyEvent);
         keyEvent.consume();
@@ -162,6 +167,20 @@ public class MyViewController implements Initializable, IView, Observer {
                 }
                 else{
                     mediaPlayerMusic.stop();
+                }
+            }
+        }
+    }
+
+    public void solveCheckBox(ActionEvent actionEvent) {
+        if (actionEvent.getSource() instanceof CheckBox) {
+            CheckBox checkBox = (CheckBox) actionEvent.getSource();
+            {
+                if (checkBox.isSelected()) {
+                    solveMaze();
+                }
+                else{
+                    unsolveMaze();
                 }
             }
         }

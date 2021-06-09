@@ -54,14 +54,14 @@
                      <Font name="System Bold" size="12.0" />
                   </font>
                </Button>
-                    <Button cancelButton="true" onAction="#solveMaze" prefHeight="25.0" prefWidth="167.0" stylesheets="@MainStyle.css" text="Solve Maze" GridPane.columnSpan="2" GridPane.rowIndex="3" />
+                    <Button accessibleRole="CHECK_BOX" cancelButton="true" onAction="#solveCheckBox" prefHeight="25.0" prefWidth="167.0" stylesheets="@MainStyle.css" text="Solve Maze" GridPane.columnSpan="2" GridPane.rowIndex="3" />
                     <Label text="Player Row = " GridPane.rowIndex="4" />
                     <Label text="Player Col = " GridPane.rowIndex="5" />
                     <Label fx:id="playerRow" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                     <Label fx:id="playerCol" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                 </GridPane>
-            <CheckBox mnemonicParsing="false" text="Music" selected="true" onAction="#MusicCheckBox"/>
-            <CheckBox mnemonicParsing="false" text="Sounds" selected="true" onAction="#SoundCheckBox"/>
+            <CheckBox mnemonicParsing="false" onAction="#MusicCheckBox" selected="true" text="Music" />
+            <CheckBox mnemonicParsing="false" onAction="#SoundCheckBox" selected="true" text="Sounds" />
             </children>
             <padding>
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -86,10 +86,10 @@
                                 <MenuItem mnemonicParsing="false" text="New" />
                             </items>
                             <items>
-                                <MenuItem mnemonicParsing="false" text="Save" onAction="#saveMaze" />
+                                <MenuItem mnemonicParsing="false" onAction="#saveMaze" text="Save" />
                             </items>
                             <items>
-                                <MenuItem mnemonicParsing="false" text="Load" onAction="#loadMaze" />
+                                <MenuItem mnemonicParsing="false" onAction="#loadMaze" text="Load" />
                             </items>
                         </Menu>
                         <Menu mnemonicParsing="false" text="Options">
@@ -111,23 +111,7 @@
     <center>
         <Pane BorderPane.alignment="CENTER">
             <children>
-                <MazeDisplayer fx:id="mazeDisplayer" height="400.0"
-                               imageFileNameVoid="./resources/images/void.png"
-                               imageFileNamePlayer="./resources/images/gretel_front.png"
-                               imageFileNamePlayerRight1="./resources/images/gretel_right_1.png"
-                               imageFileNamePlayerRight2="./resources/images/gretel_right_2.png"
-                               imageFileNamePlayerLeft1="./resources/images/gretel_left_1.png"
-                               imageFileNamePlayerLeft2="./resources/images/gretel_left_2.png"
-                               imageFileNamePlayerFront1="./resources/images/gretel_front_1.png"
-                               imageFileNamePlayerFront2="./resources/images/gretel_front_2.png"
-                               imageFileNamePlayerBack="./resources/images/gretel_back.png"
-                               imageFileNamePlayerBack1="./resources/images/gretel_back_1.png"
-                               imageFileNamePlayerBack2="./resources/images/gretel_back_2.png"
-                               imageFileNamePath="./resources/images/path.jpg"
-                               imageFileNameWall="./resources/images/wall.png"
-                               imageFileNameBreadCrumb="./resources/images/Bread_crumb.png"
-                               onKeyPressed="#keyPressed"
-                               width="400.0"/>
+                <MazeDisplayer fx:id="mazeDisplayer" height="400.0" imageFileNameBreadCrumb="./resources/images/Bread_crumb.jpg" imageFileNamePath="./resources/images/path.jpg" imageFileNamePlayer="./resources/images/gretel_front.png" imageFileNamePlayerBack="./resources/images/gretel_back.png" imageFileNamePlayerBack1="./resources/images/gretel_back_1.png" imageFileNamePlayerBack2="./resources/images/gretel_back_2.png" imageFileNamePlayerFront1="./resources/images/gretel_front_1.png" imageFileNamePlayerFront2="./resources/images/gretel_front_2.png" imageFileNamePlayerLeft1="./resources/images/gretel_left_1.png" imageFileNamePlayerLeft2="./resources/images/gretel_left_2.png" imageFileNamePlayerRight1="./resources/images/gretel_right_1.png" imageFileNamePlayerRight2="./resources/images/gretel_right_2.png" imageFileNameVoid="./resources/images/void.png" imageFileNameWall="./resources/images/wall.png" onKeyPressed="#keyPressed" width="400.0" />
             </children>
             <padding>
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

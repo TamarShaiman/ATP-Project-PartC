@@ -254,16 +254,29 @@ public class MazeDisplayer extends Canvas {
                 timer1.schedule(new TimerTask() {
                     @Override
                     public void run() {
+                        //graphicsContext.drawImage(images[1], coordinates[2], coordinates[3], cellWidth, cellHeight);
                         drawMazePaths(graphicsContext, cellHeight, cellWidth, rows, cols);
                         drawMazeWalls(graphicsContext, cellHeight, cellWidth, rows, cols);
                         graphicsContext.drawImage(images[1], coordinates[2], coordinates[3], cellWidth, cellHeight);
                     }
-                }, 120);
+                }, 100);
+
+/*                timer1.schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        drawMazePaths(graphicsContext, cellHeight, cellWidth, rows, cols);
+                        drawMazeWalls(graphicsContext, cellHeight, cellWidth, rows, cols);
+                    }
+                }, 1000);*/
 
 
                 timer1.schedule(new TimerTask() {
                     @Override
                     public void run() {
+                        /*if(prevRow == playerRow+1 && prevCol == playerCol) //player went up
+                            drawPlayerBack(graphicsContext, cellHeight, cellWidth);
+                        else
+                            drawPlayer(graphicsContext, cellHeight, cellWidth);*/
                         drawMazePaths(graphicsContext, cellHeight, cellWidth, rows, cols);
                         drawMazeWalls(graphicsContext, cellHeight, cellWidth, rows, cols);
                         if(prevRow == playerRow+1 && prevCol == playerCol) //player went up
@@ -272,7 +285,8 @@ public class MazeDisplayer extends Canvas {
                             drawPlayer(graphicsContext, cellHeight, cellWidth);
 
                     }
-                }, 240);
+                }, 150);
+                //draw(false, showSolution, 0,0,0,0);
             }
         }
     }
@@ -495,8 +509,10 @@ public class MazeDisplayer extends Canvas {
         graphicsContext.setFill(Color.RED);
 
         Image pathImage = null;
+        Image solutionImage = null;
         try{
             pathImage = new Image(new FileInputStream(getImageFileNamePath()));
+            solutionImage = new Image(new FileInputStream((getImageFileNameBreadCrumb())));
         } catch (FileNotFoundException e) {
             System.out.println("There is no path image file");
         }
@@ -511,6 +527,15 @@ public class MazeDisplayer extends Canvas {
                         graphicsContext.fillRect(x, y, cellWidth, cellHeight);
                     else
                         graphicsContext.drawImage(pathImage, x, y, cellWidth, cellHeight);
+                    /*if (this.showSolution){
+                        graphicsContext.setFill(Color.YELLOW);
+                        if(solutionImage == null)
+                            graphicsContext.fillRect(x, y, cellWidth, cellHeight);
+                        else
+                            graphicsContext.drawImage(solutionImage, x, y, cellWidth, cellHeight);
+                    }*/
+                    if (this.showSolution)
+                        drawSolution(graphicsContext, cellHeight, cellWidth, rows, cols);
                 }
             }
         }
