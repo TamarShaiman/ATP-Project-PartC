@@ -25,7 +25,7 @@
 </GridPane>-->
 
 <?import View.MazeDisplayer?>
-<BorderPane onMouseClicked="#mouseClicked" prefHeight="408.0" prefWidth="594.0" stylesheets="@MainStyle.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.MyViewController">
+<BorderPane fx:id="borderPane" onMouseClicked="#mouseClicked" prefHeight="408.0" prefWidth="594.0" stylesheets="@MainStyle.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.MyViewController">
     <left>
         <VBox opacity="0.83" prefHeight="267.0" prefWidth="202.0" spacing="5.0" style="-fx-background-color: mistyrose;">
             <children>
@@ -101,7 +101,10 @@
                         </Menu>
                         <Menu mnemonicParsing="false" text="About">
                         </Menu>
-                        <Menu mnemonicParsing="false" text="Exit">
+                        <Menu mnemonicParsing="false" text="Exit" fx:id="exitMenu" >
+                            <items>
+                                <MenuItem mnemonicParsing="false" text="Exit Maze" onAction="#exitProgram"/>
+                            </items>
                         </Menu>
                     </menus>
                 </MenuBar>
@@ -109,7 +112,13 @@
         </VBox>
     </top>
     <center>
-        <Pane BorderPane.alignment="CENTER">
+        <Pane fx:id="mazePane" onScroll="#scrollMaze" prefHeight="317.0" prefWidth="362.0" BorderPane.alignment="CENTER">
+            <!--
+            <ScrollPane fx:id="scrollPaneMaze" BorderPane.alignment="CENTER" pannable="true" />
+-->
+            <BorderPane.margin>
+                <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+            </BorderPane.margin>
             <children>
                 <MazeDisplayer fx:id="mazeDisplayer" height="400.0"
                                imageFileNameVoid="./resources/images/void.png"
@@ -125,7 +134,10 @@
                                imageFileNamePlayerBack2="./resources/images/gretel_back_2.png"
                                imageFileNamePath="./resources/images/path.jpg"
                                imageFileNameWall="./resources/images/wall.png"
+                               imageFileNameBreadCrumb="./resources/images/bread_crumb.png"
+                               imageFileNameGoal="./resources/images/hanselandgretel.jpg"
                                onKeyPressed="#keyPressed"
+                               onMouseDragged="#mouseDragged"
                                width="400.0"/>
             </children>
             <padding>

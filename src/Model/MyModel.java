@@ -88,35 +88,37 @@ public class MyModel extends Observable implements IModel {
 
     @Override
     public void solveMaze() {
-        try {
-            Client client = new Client(InetAddress.getLocalHost(), 5401, new IClientStrategy() {
-                public void clientStrategy(InputStream inFromServer, OutputStream outToServer) {
-                    try {
-                        ObjectOutputStream toServer = new ObjectOutputStream(outToServer);
-                        ObjectInputStream fromServer = new ObjectInputStream(inFromServer);
-                        toServer.flush();
-                        maze.print();
-                        toServer.writeObject(maze);
-                        toServer.flush();
-                         mazeSolution = (Solution)fromServer.readObject();
-                        System.out.println(String.format("Solution steps: %s", mazeSolution));
+        if (this.maze != null) {
+            try {
+                Client client = new Client(InetAddress.getLocalHost(), 5401, new IClientStrategy() {
+                    public void clientStrategy(InputStream inFromServer, OutputStream outToServer) {
+                        try {
+                            ObjectOutputStream toServer = new ObjectOutputStream(outToServer);
+                            ObjectInputStream fromServer = new ObjectInputStream(inFromServer);
+                            toServer.flush();
+                            maze.print();
+                            toServer.writeObject(maze);
+                            toServer.flush();
+                            mazeSolution = (Solution) fromServer.readObject();
+                            System.out.println(String.format("Solution steps: %s", mazeSolution));
                         /*mazeSolutionSteps = new ArrayList<>();
                         mazeSolutionSteps = mazeSolution.getSolutionPath();*/
 
                         /*for(int i = 0; i < mazeSolutionSteps.size(); ++i) {
                             System.out.println(String.format("%s. %s", i, ((AState)mazeSolutionSteps.get(i)).toString()));
                         }*/
-                    } catch (Exception var10) {
-                        var10.printStackTrace();
+                        } catch (Exception var10) {
+                            var10.printStackTrace();
+                        }
                     }
-                }
-            });
-            client.communicateWithServer();
-        } catch (UnknownHostException var1) {
-            var1.printStackTrace();
+                });
+                client.communicateWithServer();
+            } catch (UnknownHostException var1) {
+                var1.printStackTrace();
+            }
+            setChanged();
+            notifyObservers("maze solved");
         }
-        setChanged();
-        notifyObservers("maze solved");
     }
 
 
@@ -143,7 +145,10 @@ public class MyModel extends Observable implements IModel {
 
     @Override
     public Solution getSolution() {
-        return mazeSolution;
+        if (this.maze!= null)
+            return mazeSolution;
+        else
+            return null;
     }
 
 
@@ -283,6 +288,13 @@ public class MyModel extends Observable implements IModel {
                 var4.printStackTrace();
             }
         }
+    }
+
+    @Override
+    public void exitProgram() {
+        mazeGeneratingServer.stop();
+        solveSearchProblemServer.stop();
+
     }
 
     @Override
