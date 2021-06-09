@@ -257,11 +257,11 @@ public class MyViewController implements Initializable, IView, Observer {
 
         primeScene.widthProperty().addListener((observable, oldValue, newValue) -> {
             mazeDisplayer.drawMaze(viewModel.getMaze());
-            System.out.println("Height: " + primeScene.getHeight() + " Width: " + primeScene.getWidth());
+            System.out.println("Width: " + primeScene.getWidth()+ " Height: " + primeScene.getHeight());
         });
         primeScene.heightProperty().addListener((observable, oldValue, newValue) -> {
             mazeDisplayer.drawMaze(viewModel.getMaze());
-            System.out.println("Height: " + primeScene.getHeight() + " Width: " + primeScene.getWidth());
+            System.out.println("Width: " + primeScene.getWidth()+ " Height: " + primeScene.getHeight());
 
         });
     }
