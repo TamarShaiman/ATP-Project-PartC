@@ -27,4 +27,10 @@ public interface IModel {
 
 
     void exitProgram();
+
+    void changeConfig();
+
+    void getMazeGeneratingAlgo();
+
+     void changeProperties(String mazeGeneratingAlgo, String searchingAlgo , String poolSize);
 }

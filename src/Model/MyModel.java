@@ -76,7 +76,8 @@ public class MyModel extends Observable implements IModel {
                         var10.printStackTrace();
                     }
                 }
-            });client.communicateWithServer();
+            });
+            client.communicateWithServer();
             initMazeTable();
 
         } catch (UnknownHostException var1) {
@@ -290,6 +291,50 @@ public class MyModel extends Observable implements IModel {
         mazeGeneratingServer.stop();
         solveSearchProblemServer.stop();
 
+
+    }
+
+    @Override
+    public void changeConfig() {
+
+        mazeGeneratingServer.stop();
+        solveSearchProblemServer.stop();
+
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        mazeGeneratingServer = new Server(5400, 1000, new ServerStrategyGenerateMaze());
+        solveSearchProblemServer = new Server(5401,1000, new ServerStrategySolveSearchProblem());
+        solveSearchProblemServer.start();
+        mazeGeneratingServer.start();
+
+
+        this.maze = null;
+        rowChar = 0;
+        colChar = 0;
+
+    }
+
+    @Override
+    public void getMazeGeneratingAlgo() {
+        Configurations con = Configurations.getInstance();
+        con.getProperty("mazeGeneratingAlgorithm");
+
+    }
+
+    @Override
+    public void changeProperties(String mazeGeneratingAlgo, String searchingAlgo , String poolSize) {
+        Configurations con = Configurations.getInstance();
+        con.setProperty("mazeGeneratingAlgorithm",mazeGeneratingAlgo);
+        con.setProperty("mazeSearchingAlgorithm",searchingAlgo);
+        con.setProperty("threadPoolSize",poolSize);
+        System.out.println(con.getProperty("mazeGeneratingAlgorithm"));
+        changeConfig();
+        setChanged();
+        notifyObservers("switched Maze Generator");
     }
 
     @Override

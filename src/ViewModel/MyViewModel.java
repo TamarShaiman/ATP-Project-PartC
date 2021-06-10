@@ -135,4 +135,17 @@ public class MyViewModel extends Observable implements Observer {
     public void exitProgram() {
         model.exitProgram();
     }
+
+    public void getMazeGeneratingAlgo() { model.getMazeGeneratingAlgo(); }
+    public void changeProperties(String mazeGeneratingAlgo, String searchingAlgo , String poolSize) { model.changeProperties(mazeGeneratingAlgo, searchingAlgo ,  poolSize); }
+
+   /* public void getSearchingAlgo() { model.getSearchingAlgo(); }
+    public void setSearchingAlgo() { model.setSearchingAlgo(); }
+
+    public void getThreadPoolSize() { model.getThreadPoolSize(); }
+    public void setThreadPoolSize() { model.setThreadPoolSize(); }*/
+
+    public void changeConfig() {
+        model.changeConfig();
+    }
 }

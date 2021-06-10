@@ -24,7 +24,8 @@
           xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="10" vgap="10">
 </GridPane>-->
 
-<?import View.MazeDisplayer?>
+<?import View.*?>
+<?import javafx.scene.control.ScrollPane?>
 <BorderPane fx:id="borderPane" onMouseClicked="#mouseClicked" prefHeight="408.0" prefWidth="594.0" stylesheets="@MainStyle.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.MyViewController">
     <left>
         <VBox opacity="0.83" prefHeight="267.0" prefWidth="202.0" spacing="5.0" style="-fx-background-color: mistyrose;">
@@ -94,7 +95,7 @@
                         </Menu>
                         <Menu mnemonicParsing="false" text="Options">
                             <items>
-                                <MenuItem mnemonicParsing="false" text="Properties" />
+                                <MenuItem mnemonicParsing="false" text="Properties" onAction="#openProp" />
                             </items>
                         </Menu>
                         <Menu mnemonicParsing="false" text="Help">
@@ -113,7 +114,7 @@
     </top>
     <center>
         <Pane fx:id="mazePane" onScroll="#scrollMaze" prefHeight="317.0" prefWidth="362.0" BorderPane.alignment="CENTER">
-            <!--
+<!--
             <ScrollPane fx:id="scrollPaneMaze" BorderPane.alignment="CENTER" pannable="true" />
 -->
             <BorderPane.margin>
