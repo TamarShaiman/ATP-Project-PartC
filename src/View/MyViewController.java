@@ -4,7 +4,9 @@ import com.sun.media.jfxmediaimpl.platform.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
@@ -18,6 +20,7 @@ import javafx.stage.FileChooser;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.Observable;
 import java.util.Observer;
@@ -25,6 +28,8 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 import ViewModel.*;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 
 public class MyViewController implements Initializable, IView, Observer {
@@ -320,6 +325,30 @@ public class MyViewController implements Initializable, IView, Observer {
         }
         else{
         mazeDisplayer.drawMaze(viewModel.getMaze());}
+    }
+
+    public void openProp(ActionEvent actionEvent) throws IOException {
+        Stage stage = new Stage();
+        stage.setTitle("Properties");
+        FXMLLoader propFXML = new FXMLLoader(getClass().getResource("/View/Properties.fxml"));
+        Parent root = propFXML.load();
+        PropertiesController propController = propFXML.getController();
+        propController.setViewModel(viewModel);
+        propController.setStage(stage);
+        Scene scene = new Scene(root, 650, 250);
+        stage.setScene(scene);
+        stage.initModality(Modality.APPLICATION_MODAL);
+/*
+        scene.getStylesheets().addAll(this.getClass().getResource("prop.css").toExternalForm());
+*/
+        stage.show();
+/*
+        stage.showAndWait();
+*/
+        /*if(!stage.isShowing()) {
+            viewModel.changeConfig();
+        }*/
+
     }
 }
 
