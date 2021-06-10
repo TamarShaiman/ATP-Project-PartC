@@ -28,6 +28,7 @@ public class Main extends Application {
         view.mediaPlayerMusic.setAutoPlay(true);
 
         view.setResizeEvent(primeScene);
+
         primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             @Override
             public void handle(WindowEvent windowEvent) {

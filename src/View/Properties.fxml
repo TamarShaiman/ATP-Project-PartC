@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.BoxBlur?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane  prefHeight="305.0" prefWidth="578.0" style="/*-fx-background-image: url;*/ -fx-background-size: 100% 100%;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.PropertiesController">
+    <children>
+        <ImageView fitHeight="336.0" fitWidth="578.0" layoutY="1.0" opacity="0.4">
+            <effect>
+                <BoxBlur iterations="0" />
+            </effect>
+            <image>
+              <!--  <Image url="@../../resources/images/PropBackground.jpg" />-->
+            </image>
+        </ImageView>
+        <Label layoutX="212.0" layoutY="48.0" prefHeight="20.0" prefWidth="177.0" text="Searching Algorithm" underline="true">
+            <font>
+                <Font name="Yu Gothic Medium" size="16.0" />
+            </font></Label>
+        <Label fx:id="label" layoutX="211.0" layoutY="58.0" />
+        <ChoiceBox fx:id="searchingAlgorithm" layoutX="214.0" layoutY="94.0" prefWidth="150.0" />
+        <Button layoutX="224.0" layoutY="180.0" mnemonicParsing="false" onAction="#Save" prefHeight="44.0" prefWidth="94.0" text="Save">
+            <font>
+                <Font size="17.0" />
+            </font></Button>
+        <Slider fx:id="musicSlider" layoutX="424.0" layoutY="178.0" />
+        <Slider fx:id="soundSlider" layoutX="424.0" layoutY="139.0" />
+        <RadioButton fx:id="EmptyButton" layoutX="35.0" layoutY="88.0" mnemonicParsing="false" text="Empty Maze">
+            <font>
+                <Font name="Yu Gothic Medium" size="14.0" />
+            </font>
+        </RadioButton>
+        <RadioButton fx:id="SimpleButton" layoutX="35.0" layoutY="127.0" mnemonicParsing="false" text="Simple Maze">
+            <font>
+                <Font name="Yu Gothic Medium" size="14.0" />
+            </font>
+        </RadioButton>
+        <RadioButton fx:id="MyButton" layoutX="35.0" layoutY="166.0" mnemonicParsing="false" text="My Maze">
+            <font>
+                <Font name="Yu Gothic Medium" size="14.0" />
+            </font>
+        </RadioButton>
+        <Label layoutX="23.0" layoutY="36.0" prefHeight="44.0" prefWidth="161.0" text="Choose Generator" underline="true">
+            <font>
+                <Font name="Yu Gothic Medium" size="16.0" />
+            </font>
+        </Label>
+        <Label layoutX="406.0" layoutY="48.0" prefHeight="20.0" prefWidth="177.0" text="Thread Pool Size" underline="true">
+            <font>
+                <Font name="Yu Gothic Medium" size="16.0" />
+            </font>
+        </Label>
+        <TextField layoutX="418.0" layoutY="94.0" prefHeight="25.0" prefWidth="94.0" fx:id="threadPoolSize" />
+
+
+    </children>
+</Pane>
