@@ -40,7 +40,7 @@ public class MyViewController implements Initializable, IView, Observer {
     public Label playerRow;
     public Label playerCol;
     private MyViewModel viewModel;
-    private int [][] maze;
+    private int[][] maze;
     StringProperty updatePlayerRow = new SimpleStringProperty();
     StringProperty updatePlayerCol = new SimpleStringProperty();
     public Pane mazePane;
@@ -106,7 +106,7 @@ public class MyViewController implements Initializable, IView, Observer {
         int rows = Integer.valueOf(textField_mazeRows.getText());
         int cols = Integer.valueOf(textField_mazeColumns.getText());
 
-        viewModel.generateMaze(rows,cols);
+        viewModel.generateMaze(rows, cols);
     }
 
     public void solveMaze() {
@@ -123,26 +123,24 @@ public class MyViewController implements Initializable, IView, Observer {
     }
 
 
-    public void setPlayerPosition(int row, int col){//
+    public void setPlayerPosition(int row, int col) {//
         mazeDisplayer.setPlayerPosition(row, col);
         setUpdatePlayerRow(row);
         setUpdatePlayerCol(col);
     }
 
 
-    public void drawMaze()
-    {
+    public void drawMaze() {
         mazeDisplayer.drawMaze(maze);
     }
 
     @Override
 
     public void update(Observable o, Object arg) {
-        if(o instanceof MyViewModel)
-        {
+        if (o instanceof MyViewModel) {
 
-            String change = (String)arg;
-            switch(change){
+            String change = (String) arg;
+            switch (change) {
 
                 case "maze generated" -> mazeGenerated();
                 case "player moved" -> playerMoved();
@@ -160,16 +158,16 @@ public class MyViewController implements Initializable, IView, Observer {
     }
 
     private void invalidStep() {
-        if(soundCheck){
-        mediaPlayerSound.play();
-        mediaPlayerSound.seek(mediaPlayerSound.getStartTime());
+        if (soundCheck) {
+            mediaPlayerSound.play();
+            mediaPlayerSound.seek(mediaPlayerSound.getStartTime());
         }
         System.out.println("invalid");
 
     }
 
     private void mazeSolved() {
-            mazeDisplayer.setSolution(viewModel.getSolution());
+        mazeDisplayer.setSolution(viewModel.getSolution());
     }
 
     private void mazeGenerated() {
@@ -193,8 +191,7 @@ public class MyViewController implements Initializable, IView, Observer {
                 if (checkBox.isSelected()) {
                     mediaPlayerMusic.setCycleCount(MediaPlayer.INDEFINITE);
                     mediaPlayerMusic.play();
-                }
-                else{
+                } else {
                     mediaPlayerMusic.stop();
                 }
             }
@@ -215,8 +212,7 @@ public class MyViewController implements Initializable, IView, Observer {
             {
                 if (checkBox.isSelected()) {
                     soundCheck = true;
-                }
-                else{
+                } else {
                     soundCheck = false;
                 }
             }
@@ -225,7 +221,7 @@ public class MyViewController implements Initializable, IView, Observer {
 
     public void scrollMaze(ScrollEvent scrollEvent) {
         double deltaY = scrollEvent.getDeltaY();
-        if(scrollEvent.isControlDown()) {
+        if (scrollEvent.isControlDown()) {
             double zoomFactor = 1.05;
             if (deltaY < 0) {
                 zoomFactor = 0.95;
@@ -255,6 +251,7 @@ public class MyViewController implements Initializable, IView, Observer {
             scrollEvent.consume();
         }
     }
+
     public void setResizeEvent(Scene primeScene) {
 
         mazeDisplayer.widthProperty().bind(mazePane.widthProperty());
@@ -262,11 +259,11 @@ public class MyViewController implements Initializable, IView, Observer {
 
         primeScene.widthProperty().addListener((observable, oldValue, newValue) -> {
             mazeDisplayer.drawMaze(viewModel.getMaze());
-            System.out.println("Width: " + primeScene.getWidth()+ " Height: " + primeScene.getHeight());
+            System.out.println("Width: " + primeScene.getWidth() + " Height: " + primeScene.getHeight());
         });
         primeScene.heightProperty().addListener((observable, oldValue, newValue) -> {
             mazeDisplayer.drawMaze(viewModel.getMaze());
-            System.out.println("Width: " + primeScene.getWidth()+ " Height: " + primeScene.getHeight());
+            System.out.println("Width: " + primeScene.getWidth() + " Height: " + primeScene.getHeight());
 
         });
     }
@@ -280,16 +277,16 @@ public class MyViewController implements Initializable, IView, Observer {
     }
 
     public void mouseDragged(MouseEvent mouseEvent) {
-        if(viewModel.getMaze() != null) {
-        // calculate mouse position by X and Y
+        if (viewModel.getMaze() != null) {
+            // calculate mouse position by X and Y
             int rows = viewModel.getMaze().length;
             int cols = viewModel.getMaze()[0].length;
-            int maxOfRowsOrCols = Math.max(rows,cols);
-            double newX = calculateMouse(maxOfRowsOrCols,mazeDisplayer.getWidth(), viewModel.getMaze().length,mouseEvent.getX(),mazeDisplayer.getWidth() / maxOfRowsOrCols);
-            double newY = calculateMouse(maxOfRowsOrCols,mazeDisplayer.getHeight(), viewModel.getMaze()[0].length,mouseEvent.getY(),mazeDisplayer.getHeight() / maxOfRowsOrCols);
+            int maxOfRowsOrCols = Math.max(rows, cols);
+            double newX = calculateMouse(maxOfRowsOrCols, mazeDisplayer.getWidth(), viewModel.getMaze().length, mouseEvent.getX(), mazeDisplayer.getWidth() / maxOfRowsOrCols);
+            double newY = calculateMouse(maxOfRowsOrCols, mazeDisplayer.getHeight(), viewModel.getMaze()[0].length, mouseEvent.getY(), mazeDisplayer.getHeight() / maxOfRowsOrCols);
             double viewModelX = viewModel.getColChar();
             double viewModelY = viewModel.getRowChar();
-            KeyCode keyCode = chooseDirection(newX,newY,viewModelX,viewModelY);
+            KeyCode keyCode = chooseDirection(newX, newY, viewModelX, viewModelY);
             this.viewModel.moveCharacter(keyCode);
 
 
@@ -299,32 +296,37 @@ public class MyViewController implements Initializable, IView, Observer {
 
     private KeyCode chooseDirection(double newX, double newY, double viewModelX, double viewModelY) {
         KeyCode keyCode = KeyCode.NUMPAD0;
-        if (newX == viewModelX && newY > viewModelY){keyCode = KeyCode.NUMPAD2; }
-        else if (newX == viewModelX && newY < viewModelY){keyCode = KeyCode.NUMPAD8; }
-        else if (newX > viewModelX && newY == viewModelY){keyCode = KeyCode.NUMPAD6; }
-        else if (newX < viewModelX && newY == viewModelY){keyCode = KeyCode.NUMPAD4; }
+        if (newX == viewModelX && newY > viewModelY) {
+            keyCode = KeyCode.NUMPAD2;
+        } else if (newX == viewModelX && newY < viewModelY) {
+            keyCode = KeyCode.NUMPAD8;
+        } else if (newX > viewModelX && newY == viewModelY) {
+            keyCode = KeyCode.NUMPAD6;
+        } else if (newX < viewModelX && newY == viewModelY) {
+            keyCode = KeyCode.NUMPAD4;
+        }
         return keyCode;
     }
 
     private double calculateMouse(int maxOfRowsOrCols, double sizeOfMaze, int length, double mouseMove, double dist) {
         double cellSize = sizeOfMaze / maxOfRowsOrCols;
-        double start = (sizeOfMaze/2 - (cellSize*length / 2)) / cellSize;
+        double start = (sizeOfMaze / 2 - (cellSize * length / 2)) / cellSize;
         double mouseCalc = (int) ((mouseMove) / (dist) - start);
         return mouseCalc;
 
     }
 
-    public void exitProgram( ) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION,"Are you sure you want to exit Hansel and Gretel maze game ?");
+    public void exitProgram() {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to exit Hansel and Gretel maze game ?");
         Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == ButtonType.OK){
-            if(viewModel != null){
+        if (result.get() == ButtonType.OK) {
+            if (viewModel != null) {
                 viewModel.exitProgram();
                 System.exit(0);
             }
+        } else {
+            mazeDisplayer.drawMaze(viewModel.getMaze());
         }
-        else{
-        mazeDisplayer.drawMaze(viewModel.getMaze());}
     }
 
     public void openProp(ActionEvent actionEvent) throws IOException {
@@ -349,6 +351,18 @@ public class MyViewController implements Initializable, IView, Observer {
             viewModel.changeConfig();
         }*/
 
+    }
+
+    public void newMaze(ActionEvent actionEvent) {
+        int rows = Integer.valueOf(textField_mazeRows.getText());
+        int columns = Integer.valueOf(textField_mazeColumns.getText());
+        if (rows >= 1 && columns >= 1) {
+            viewModel.generateMaze(rows, columns);
+        } else {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("Hii ! You should insert positive numbers... ");
+            alert.show();
+        }
     }
 }
 
