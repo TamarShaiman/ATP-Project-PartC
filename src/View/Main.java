@@ -24,6 +24,7 @@ public class Main extends Application {
         IModel model = new MyModel();
         MyViewModel viewModel = new MyViewModel(model);
         MyViewController view = fxmlLoader.getController(); // TODO; need to change to IView
+        view.setPrimaryStage(primaryStage);
         view.setViewModel(viewModel);
         view.mediaPlayerMusic.setAutoPlay(true);
 

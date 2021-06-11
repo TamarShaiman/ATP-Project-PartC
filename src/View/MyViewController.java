@@ -1,10 +1,13 @@
 package View;
 
+import com.sun.javafx.stage.EmbeddedWindow;
 import com.sun.media.jfxmediaimpl.platform.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
@@ -18,6 +21,7 @@ import javafx.stage.FileChooser;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.Observable;
 import java.util.Observer;
@@ -25,6 +29,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 import ViewModel.*;
+import javafx.stage.Stage;
 
 
 public class MyViewController implements Initializable, IView, Observer {
@@ -45,6 +50,7 @@ public class MyViewController implements Initializable, IView, Observer {
     public Menu exitMenu;
 
     Boolean soundCheck = true;
+    Boolean musicCheck = true;
 
     String musicFileMusic = "./resources/Music/Music1.mp3";// For example
     File file = new File(musicFileMusic);
@@ -56,6 +62,17 @@ public class MyViewController implements Initializable, IView, Observer {
     Media sound = new Media(fileSound.toURI().toString());
     MediaPlayer mediaPlayerSound = new MediaPlayer(sound);
 
+    String musicFileMusicVic = "./resources/Music/Yay.mp3";
+    File fileVic = new File(musicFileMusicVic);
+    Media musicVic = new Media(fileVic.toURI().toString());
+    MediaPlayer mediaPlayerMusicVic = new MediaPlayer(musicVic);
+
+
+    Stage primaryStage;
+
+    public void setPrimaryStage(Stage stage){
+        this.primaryStage = stage;
+    }
 
     public String getUpdatePlayerRow() {
         return updatePlayerRow.get();
@@ -177,8 +194,31 @@ public class MyViewController implements Initializable, IView, Observer {
         playerMoved();
     }
 
-    private void playerMoved() {
+    private void playerMoved()  {
         setPlayerPosition(viewModel.getRowChar(), viewModel.getColChar());
+        int goalCol = this.viewModel.getColGoal();
+        int goalRow = this.viewModel.getRowGoal();
+        if ( viewModel.getColChar()== goalCol && viewModel.getRowChar() == goalRow){
+            wonMaze();
+        }
+    }
+
+    private void wonMaze(){
+//        mazeDisplayer.won = true;
+        playVictoryMusic();
+        mediaPlayerMusic.stop();
+        mazeDisplayer.drawVictory();
+    }
+
+    private void playVictoryMusic() {
+        mediaPlayerMusic.stop();
+        mediaPlayerMusicVic.setCycleCount(1);
+        if (soundCheck)
+            mediaPlayerMusicVic.play();
+            mediaPlayerMusicVic.seek(mediaPlayerMusicVic.getStartTime());
+
+        if (musicCheck)
+            mediaPlayerMusic.play();
     }
 
     public void MusicCheckBox(ActionEvent actionEvent) {
@@ -186,10 +226,12 @@ public class MyViewController implements Initializable, IView, Observer {
             CheckBox checkBox = (CheckBox) actionEvent.getSource();
             {
                 if (checkBox.isSelected()) {
+                    this.musicCheck = true;
                     mediaPlayerMusic.setCycleCount(MediaPlayer.INDEFINITE);
                     mediaPlayerMusic.play();
                 }
                 else{
+                    this.musicCheck = false;
                     mediaPlayerMusic.stop();
                 }
             }

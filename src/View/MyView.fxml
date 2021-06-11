@@ -136,6 +136,7 @@
                                imageFileNameWall="./resources/images/wall.png"
                                imageFileNameBreadCrumb="./resources/images/bread_crumb.png"
                                imageFileNameGoal="./resources/images/hanselandgretel.jpg"
+                               imageFileNameVictory="./resources/images/testi.gif"
                                onKeyPressed="#keyPressed"
                                onMouseDragged="#mouseDragged"
                                width="400.0"/>
