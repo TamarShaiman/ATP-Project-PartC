@@ -105,8 +105,10 @@ public class MyViewController implements Initializable, IView, Observer {
 
         int rows = Integer.valueOf(textField_mazeRows.getText());
         int cols = Integer.valueOf(textField_mazeColumns.getText());
-
-        viewModel.generateMaze(rows, cols);
+        if(rows > 0 && cols > 0)
+            viewModel.generateMaze(rows, cols);
+        else
+            invalidMazeSize();
     }
 
     public void solveMaze() {
@@ -359,10 +361,14 @@ public class MyViewController implements Initializable, IView, Observer {
         if (rows >= 1 && columns >= 1) {
             viewModel.generateMaze(rows, columns);
         } else {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText("Hii ! You should insert positive numbers... ");
-            alert.show();
+            invalidMazeSize();
         }
+    }
+
+    private void invalidMazeSize() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setContentText("Hii ! You should insert positive numbers... ");
+        alert.show();
     }
 }
 
