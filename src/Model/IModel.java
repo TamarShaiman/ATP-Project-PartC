@@ -24,7 +24,6 @@ public interface IModel {
      void saveMaze();
      void loadMaze();
      void savePlayer();
-
      void changeProperties(String mazeGeneratingAlgo, String searchingAlgo , String poolSize);
      void changeConfig();
     void exitProgram();

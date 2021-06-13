@@ -9,15 +9,12 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.RadioButton?>
-<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -27,7 +24,7 @@
           xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="10" vgap="10">
 </GridPane>-->
 
-<?import View.*?>
+<?import View.MazeDisplayer?>
 <BorderPane fx:id="borderPane" onMouseClicked="#mouseClicked" prefHeight="408.0" prefWidth="594.0" stylesheets="@MainStyle.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.MyViewController">
     <left>
         <VBox opacity="0.83" prefHeight="267.0" prefWidth="202.0" spacing="5.0" style="-fx-background-color: mistyrose;">
@@ -50,42 +47,21 @@
                     <TextField fx:id="textField_mazeRows" text="10" GridPane.columnIndex="1" GridPane.rowIndex="0" />
                     <TextField fx:id="textField_mazeColumns" text="10" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                     <Button onAction="#generateMaze" prefHeight="25.0" prefWidth="167.0" stylesheets="@MainStyle.css" text="Generate Maze" textFill="#171717" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="2">
-                        <cursor>
-                            <Cursor fx:constant="DEFAULT" />
-                        </cursor>
-                        <font>
-                            <Font name="System Bold" size="12.0" />
-                        </font>
-                    </Button>
+                  <cursor>
+                     <Cursor fx:constant="DEFAULT" />
+                  </cursor>
+                  <font>
+                     <Font name="System Bold" size="12.0" />
+                  </font>
+               </Button>
                     <Button cancelButton="true" onAction="#solveMaze" prefHeight="25.0" prefWidth="167.0" stylesheets="@MainStyle.css" text="Solve Maze" GridPane.columnSpan="2" GridPane.rowIndex="3" />
                     <Label text="Player Row = " GridPane.rowIndex="4" />
                     <Label text="Player Col = " GridPane.rowIndex="5" />
                     <Label fx:id="playerRow" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                     <Label fx:id="playerCol" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                 </GridPane>
-                <CheckBox mnemonicParsing="false" onAction="#MusicCheckBox" selected="true" text="Music" />
-                <CheckBox mnemonicParsing="false" onAction="#SoundCheckBox" selected="true" text="Sounds" />
-            <GridPane>
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-              </rowConstraints>
-               <children>
-                  <RadioButton fx:id="HanselPlayer" mnemonicParsing="false" text="Hansel" />
-                  <RadioButton fx:id="GretelPlayer" mnemonicParsing="false" text="Gretel" GridPane.columnIndex="1" />
-                  <ImageView fx:id="hanselPlayer" fitHeight="87.0" fitWidth="102.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="2">
-                     <image>
-                        <Image url="@../../resources/images/gretel_front.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fitHeight="87.0" fitWidth="102.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="2" />
-               </children>
-            </GridPane>
+            <CheckBox mnemonicParsing="false" text="Music" selected="true" onAction="#MusicCheckBox"/>
+            <CheckBox mnemonicParsing="false" text="Sounds" selected="true" onAction="#SoundCheckBox"/>
             </children>
             <padding>
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -107,27 +83,27 @@
                     <menus>
                         <Menu mnemonicParsing="false" text="File">
                             <items>
-                                <MenuItem mnemonicParsing="false" onAction="#newMaze" text="New" />
+                                <MenuItem mnemonicParsing="false" text="New" onAction="#newMaze"/>
                             </items>
                             <items>
-                                <MenuItem mnemonicParsing="false" onAction="#saveMaze" text="Save" />
+                                <MenuItem mnemonicParsing="false" text="Save" onAction="#saveMaze" />
                             </items>
                             <items>
-                                <MenuItem mnemonicParsing="false" onAction="#loadMaze" text="Load" />
+                                <MenuItem mnemonicParsing="false" text="Load" onAction="#loadMaze" />
                             </items>
                         </Menu>
                         <Menu mnemonicParsing="false" text="Options">
                             <items>
-                                <MenuItem mnemonicParsing="false" onAction="#openProp" text="Properties" />
+                                <MenuItem mnemonicParsing="false" text="Properties" onAction="#openProp" />
                             </items>
                         </Menu>
                         <Menu mnemonicParsing="false" text="Help">
                         </Menu>
                         <Menu mnemonicParsing="false" text="About">
                         </Menu>
-                        <Menu fx:id="exitMenu" mnemonicParsing="false" text="Exit">
+                        <Menu mnemonicParsing="false" text="Exit" fx:id="exitMenu" >
                             <items>
-                                <MenuItem mnemonicParsing="false" onAction="#exitProgram" text="Exit Maze" />
+                                <MenuItem mnemonicParsing="false" text="Exit Maze" onAction="#exitProgram"/>
                             </items>
                         </Menu>
                     </menus>
@@ -136,19 +112,38 @@
         </VBox>
     </top>
     <center>
-        <ScrollPane fx:id="mazeScrollPane" onScroll="#scrollMaze" pannable="true" prefHeight="317.0" prefWidth="362.0"  BorderPane.alignment="CENTER" >
+        <Pane fx:id="mazePane" onScroll="#scrollMaze" prefHeight="317.0" prefWidth="362.0" BorderPane.alignment="CENTER">
             <!--
             <ScrollPane fx:id="scrollPaneMaze" BorderPane.alignment="CENTER" pannable="true" />
 -->
             <BorderPane.margin>
-                <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
             </BorderPane.margin>
-            <content>
-                <MazeDisplayer fx:id="mazeDisplayer" height="400.0" imageFileNameBreadCrumb="./resources/images/bread_crumb.png" imageFileNameGoal="./resources/images/goal.png" imageFileNamePath="./resources/images/path.jpg" imageFileNamePlayer="./resources/images/gretel_front.png" imageFileNamePlayerBack="./resources/images/gretel_back.png" imageFileNamePlayerBack1="./resources/images/gretel_back_1.png" imageFileNamePlayerBack2="./resources/images/gretel_back_2.png" imageFileNamePlayerFront1="./resources/images/gretel_front_1.png" imageFileNamePlayerFront2="./resources/images/gretel_front_2.png" imageFileNamePlayerLeft1="./resources/images/gretel_left_1.png" imageFileNamePlayerLeft2="./resources/images/gretel_left_2.png" imageFileNamePlayerRight1="./resources/images/gretel_right_1.png" imageFileNamePlayerRight2="./resources/images/gretel_right_2.png" imageFileNameVictory="./resources/images/victory.png" imageFileNameVoid="./resources/images/void.png" imageFileNameWall="./resources/images/wall.png" onKeyPressed="#keyPressed" onMouseDragged="#mouseDragged" width="400.0" />
-            </content>
+            <children>
+                <MazeDisplayer fx:id="mazeDisplayer" height="400.0"
+                               imageFileNameVoid="./resources/images/void.png"
+                               imageFileNamePlayer="./resources/images/gretel_front.png"
+                               imageFileNamePlayerRight1="./resources/images/gretel_right_1.png"
+                               imageFileNamePlayerRight2="./resources/images/gretel_right_2.png"
+                               imageFileNamePlayerLeft1="./resources/images/gretel_left_1.png"
+                               imageFileNamePlayerLeft2="./resources/images/gretel_left_2.png"
+                               imageFileNamePlayerFront1="./resources/images/gretel_front_1.png"
+                               imageFileNamePlayerFront2="./resources/images/gretel_front_2.png"
+                               imageFileNamePlayerBack="./resources/images/gretel_back.png"
+                               imageFileNamePlayerBack1="./resources/images/gretel_back_1.png"
+                               imageFileNamePlayerBack2="./resources/images/gretel_back_2.png"
+                               imageFileNamePath="./resources/images/path.jpg"
+                               imageFileNameWall="./resources/images/wall.png"
+                               imageFileNameBreadCrumb="./resources/images/bread_crumb.png"
+                               imageFileNameGoal="./resources/images/goal.png"
+                               imageFileNameVictory="./resources/images/victory.png"
+                               onKeyPressed="#keyPressed"
+                               onMouseDragged="#mouseDragged"
+                               width="400.0"/>
+            </children>
             <padding>
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
             </padding>
-        </ScrollPane>
+        </Pane>
     </center>
 </BorderPane>
