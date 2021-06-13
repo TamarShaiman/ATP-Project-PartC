@@ -135,7 +135,8 @@
                                imageFileNamePath="./resources/images/path.jpg"
                                imageFileNameWall="./resources/images/wall.png"
                                imageFileNameBreadCrumb="./resources/images/bread_crumb.png"
-                               imageFileNameGoal="./resources/images/hanselandgretel.jpg"
+                               imageFileNameGoal="./resources/images/goal.png"
+                               imageFileNameVictory="./resources/images/victory.png"
                                onKeyPressed="#keyPressed"
                                onMouseDragged="#mouseDragged"
                                width="400.0"/>
