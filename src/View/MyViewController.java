@@ -291,7 +291,6 @@ public class MyViewController implements Initializable, IView, Observer {
             KeyCode keyCode = chooseDirection(newX, newY, viewModelX, viewModelY);
             this.viewModel.moveCharacter(keyCode);
 
-
         }
         mouseEvent.consume();
     }
