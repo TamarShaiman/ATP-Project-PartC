@@ -50,6 +50,7 @@ public class MyViewController implements Initializable, IView, Observer {
     public Menu exitMenu;
 
     Boolean soundCheck = true;
+    Boolean musicCheck = true;
 
     String musicFileMusic = "./resources/Music/Music1.mp3";// For example
     File file = new File(musicFileMusic);
@@ -61,6 +62,10 @@ public class MyViewController implements Initializable, IView, Observer {
     Media sound = new Media(fileSound.toURI().toString());
     MediaPlayer mediaPlayerSound = new MediaPlayer(sound);
 
+    String musicFileMusicVic = "./resources/Music/Yay.mp3";
+    File fileVic = new File(musicFileMusicVic);
+    Media musicVic = new Media(fileVic.toURI().toString());
+    MediaPlayer mediaPlayerMusicVic = new MediaPlayer(musicVic);
 
     public String getUpdatePlayerRow() {
         return updatePlayerRow.get();
@@ -179,11 +184,35 @@ public class MyViewController implements Initializable, IView, Observer {
         mazeDisplayer.setStartRow(viewModel.getRowStart());
         mazeDisplayer.drawMaze(viewModel.getMaze());
         mazeDisplayer.showSolution = false;
+        mazeDisplayer.won = false;
         playerMoved();
     }
 
     private void playerMoved() {
         setPlayerPosition(viewModel.getRowChar(), viewModel.getColChar());
+        int goalCol = this.viewModel.getColGoal();
+        int goalRow = this.viewModel.getRowGoal();
+        if ( viewModel.getColChar()== goalCol && viewModel.getRowChar() == goalRow){
+            wonMaze();
+        }
+    }
+
+    private void wonMaze(){
+        mazeDisplayer.won = true;
+        playVictoryMusic();
+        mediaPlayerMusic.stop();
+        mazeDisplayer.drawVictory();
+    }
+
+    private void playVictoryMusic() {
+        mediaPlayerMusic.stop();
+        mediaPlayerMusicVic.setCycleCount(1);
+        if (soundCheck)
+            mediaPlayerMusicVic.play();
+        mediaPlayerMusicVic.seek(mediaPlayerMusicVic.getStartTime());
+
+        if (musicCheck)
+            mediaPlayerMusic.play();
     }
 
     public void MusicCheckBox(ActionEvent actionEvent) {
