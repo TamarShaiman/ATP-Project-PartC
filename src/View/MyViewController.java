@@ -59,6 +59,8 @@ public class MyViewController implements Initializable, IView, Observer {
     private int[][] maze;
     StringProperty updatePlayerRow = new SimpleStringProperty();
     StringProperty updatePlayerCol = new SimpleStringProperty();
+    StringProperty imageBackground = new SimpleStringProperty();
+
     public Pane mazePane;
     public BorderPane borderPane;
 
@@ -82,7 +84,6 @@ public class MyViewController implements Initializable, IView, Observer {
     Media musicVic = new Media(fileVic.toURI().toString());
     MediaPlayer mediaPlayerMusicVic = new MediaPlayer(musicVic);
 
-    String pathBackground = "./resources/images/backgroungBegin.jpg";
     public String getUpdatePlayerRow() {
         return updatePlayerRow.get();
     }
@@ -112,9 +113,7 @@ public class MyViewController implements Initializable, IView, Observer {
         GretelPlayer.setToggleGroup(group);
         HanselPlayer.setSelected(true);
 
-
         hanselPlayer = new ImageView();
-        hanselPlayer.setImage(new Image("file:./resources/images/gretel_front.png"));
 
 /*        mazeDisplayer.widthProperty().bind(mazePane.widthProperty());
         mazeDisplayer.heightProperty().bind(mazePane.heightProperty());*/
@@ -125,8 +124,6 @@ public class MyViewController implements Initializable, IView, Observer {
         mazeScrollPane.prefHeight(mazeDisplayer.getHeight());
 
         mazeScrollPane.prefHeightProperty().bind(mazeDisplayer.heightProperty());*/
-
-
 
     /*    scrollPaneMaze.prefHeightProperty().bind(mazeDisplayer.heightProperty());
         scrollPaneMaze.prefWidthProperty().bind(mazeDisplayer.widthProperty());
@@ -140,6 +137,13 @@ public class MyViewController implements Initializable, IView, Observer {
     public void setViewModel(MyViewModel viewModel) {
         this.viewModel = viewModel;
         this.viewModel.addObserver(this);
+    }
+
+    public void setImageFileBackground(String imageBackground) {
+        this.imageBackground.set(imageBackground);
+    }
+    public String getImageFileBackground() {
+        return imageBackground.get();
     }
 
     public void generateMaze() {
