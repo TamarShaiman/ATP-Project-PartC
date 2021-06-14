@@ -4,22 +4,34 @@ import com.sun.media.jfxmediaimpl.platform.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.*;
 import javafx.scene.transform.Scale;
 import javafx.stage.FileChooser;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+
+import java.awt.*;
+import java.awt.image.ImageObserver;
+import java.awt.image.ImageProducer;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Observable;
@@ -39,12 +51,17 @@ public class MyViewController implements Initializable, IView, Observer {
     public MazeDisplayer mazeDisplayer;
     public Label playerRow;
     public Label playerCol;
+    public ScrollPane mazeScrollPane;
+    public RadioButton HanselPlayer;
+    public RadioButton GretelPlayer;
+    public ImageView hanselPlayer;
     private MyViewModel viewModel;
     private int[][] maze;
     StringProperty updatePlayerRow = new SimpleStringProperty();
     StringProperty updatePlayerCol = new SimpleStringProperty();
+    StringProperty imageBackground = new SimpleStringProperty();
+
     public Pane mazePane;
-    /*    public ScrollPane scrollPaneMaze;*/
     public BorderPane borderPane;
 
     public Menu exitMenu;
@@ -87,10 +104,26 @@ public class MyViewController implements Initializable, IView, Observer {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         playerRow.textProperty().bind(updatePlayerRow);
         playerCol.textProperty().bind(updatePlayerCol);
-        mazeDisplayer.widthProperty().bind(mazePane.widthProperty());
-        mazeDisplayer.heightProperty().bind(mazePane.heightProperty());
-        mazeDisplayer.widthProperty().bind(borderPane.widthProperty());
-        mazeDisplayer.heightProperty().bind(borderPane.heightProperty());
+        mazeDisplayer.heightProperty().bind(mazeScrollPane.heightProperty());
+        mazeDisplayer.widthProperty().bind(mazeScrollPane.widthProperty());
+        mazeScrollPane.setContent(mazeDisplayer);
+
+        ToggleGroup group = new ToggleGroup();
+        HanselPlayer.setToggleGroup(group);
+        GretelPlayer.setToggleGroup(group);
+        HanselPlayer.setSelected(true);
+
+        hanselPlayer = new ImageView();
+
+/*        mazeDisplayer.widthProperty().bind(mazePane.widthProperty());
+        mazeDisplayer.heightProperty().bind(mazePane.heightProperty());*/
+/*        mazeDisplayer.widthProperty().bind(borderPane.widthProperty());
+        mazeDisplayer.heightProperty().bind(borderPane.heightProperty());*/
+
+/*        mazeScrollPane.prefWidth(mazeDisplayer.getWidth());
+        mazeScrollPane.prefHeight(mazeDisplayer.getHeight());
+
+        mazeScrollPane.prefHeightProperty().bind(mazeDisplayer.heightProperty());*/
 
     /*    scrollPaneMaze.prefHeightProperty().bind(mazeDisplayer.heightProperty());
         scrollPaneMaze.prefWidthProperty().bind(mazeDisplayer.widthProperty());
@@ -104,6 +137,13 @@ public class MyViewController implements Initializable, IView, Observer {
     public void setViewModel(MyViewModel viewModel) {
         this.viewModel = viewModel;
         this.viewModel.addObserver(this);
+    }
+
+    public void setImageFileBackground(String imageBackground) {
+        this.imageBackground.set(imageBackground);
+    }
+    public String getImageFileBackground() {
+        return imageBackground.get();
     }
 
     public void generateMaze() {
@@ -169,8 +209,6 @@ public class MyViewController implements Initializable, IView, Observer {
             mediaPlayerSound.play();
             mediaPlayerSound.seek(mediaPlayerSound.getStartTime());
         }
-        System.out.println("invalid");
-
     }
 
     private void mazeSolved() {
@@ -259,42 +297,37 @@ public class MyViewController implements Initializable, IView, Observer {
             }
 
             Scale newScale = new Scale();
-/*
-            newScale.setX(scrollPaneMaze.getScaleX() * zoomFactor);
-            newScale.setY(scrollPaneMaze.getScaleY() * zoomFactor);
-            newScale.setPivotX(scrollPaneMaze.getScaleX());
-            newScale.setPivotY(scrollPaneMaze.getScaleY());
-*/
-
-            newScale.setX(mazePane.getScaleX() * zoomFactor);
-            newScale.setY(mazePane.getScaleY() * zoomFactor);
-            newScale.setPivotX(mazePane.getScaleX());
-            newScale.setPivotY(mazePane.getScaleY());
-/*
-            mazeDisplayer.widthProperty().bind(scrollPaneMaze.widthProperty());
-            mazeDisplayer.heightProperty().bind(scrollPaneMaze.heightProperty());
-            scrollPaneMaze.getTransforms().add(newScale);*/
-            mazePane.getTransforms().add(newScale);
+            newScale.setX(mazeDisplayer.getScaleX() * zoomFactor);
+            newScale.setY(mazeDisplayer.getScaleY() * zoomFactor);
+            newScale.setPivotX(mazeDisplayer.getScaleX());
+            newScale.setPivotY(mazeDisplayer.getScaleY());
+            //mazeScrollPane.getTransforms().add(newScale);
             mazeDisplayer.getTransforms().add(newScale);
-/*
-            scrollPaneMaze.setContent(mazeDisplayer);
-*/
+            mazeScrollPane.setContent(mazeDisplayer);
+
+
             scrollEvent.consume();
         }
     }
 
     public void setResizeEvent(Scene primeScene) {
 
-        mazeDisplayer.widthProperty().bind(mazePane.widthProperty());
-        mazeDisplayer.heightProperty().bind(mazePane.heightProperty());
+        /*mazeDisplayer.widthProperty().bind(mazePane.widthProperty());
+        mazeDisplayer.heightProperty().bind(mazePane.heightProperty());*/
+        mazeDisplayer.widthProperty().bind(mazeScrollPane.widthProperty());
+        mazeDisplayer.heightProperty().bind(mazeScrollPane.heightProperty());
 
         primeScene.widthProperty().addListener((observable, oldValue, newValue) -> {
             mazeDisplayer.drawMaze(viewModel.getMaze());
+/*
             System.out.println("Width: " + primeScene.getWidth() + " Height: " + primeScene.getHeight());
+*/
         });
         primeScene.heightProperty().addListener((observable, oldValue, newValue) -> {
             mazeDisplayer.drawMaze(viewModel.getMaze());
+/*
             System.out.println("Width: " + primeScene.getWidth() + " Height: " + primeScene.getHeight());
+*/
 
         });
     }
@@ -319,7 +352,6 @@ public class MyViewController implements Initializable, IView, Observer {
             double viewModelY = viewModel.getRowChar();
             KeyCode keyCode = chooseDirection(newX, newY, viewModelX, viewModelY);
             this.viewModel.moveCharacter(keyCode);
-
 
         }
         mouseEvent.consume();

@@ -1,5 +1,5 @@
 .root {
-    -fx-background-color: yellowgreen    ;
+    -fx-background-color: yellowgreen ;
 }
 
 Button
@@ -35,4 +35,9 @@ Button:pressed
     -fx-text-insets: 2 0 0 0,2 0 3 0,2 0 4 0,2 0 5 0;
 
 }
+mazeScrollPane
+{
+    -fx-background-color: green;
+}
+
 

@@ -52,6 +52,8 @@ public class MazeDisplayer extends Canvas {
     StringProperty imageFileNameVoid = new SimpleStringProperty();
     StringProperty imageFileNameBreadCrumb= new SimpleStringProperty();
     StringProperty imageFileNameVictory= new SimpleStringProperty();
+    StringProperty imageFileNameBackground = new SimpleStringProperty();
+
 
 
     public int getPlayerRow() {
@@ -82,6 +84,10 @@ public class MazeDisplayer extends Canvas {
         draw(hasMoved, showSolution, row, col, prevRow, prevCol);
     }
 
+    public String getImageFileBackground() {
+        return imageFileNameBackground.get();
+    }
+
     public String getImageFileNameBreadCrumb() {
         return imageFileNameBreadCrumb.get();
     }
@@ -92,6 +98,10 @@ public class MazeDisplayer extends Canvas {
 
     public void setImageFileNameVictory(String imageFileNameVictory) {
         this.imageFileNameVictory.set(imageFileNameVictory);
+    }
+
+    public void setImageBackground(String imageFileNameBackground) {
+        this.imageFileNameBackground.set(imageFileNameBackground);
     }
 
     public void setImageFileNameBreadCrumb(String imageFileNameBreadCrumb) {
