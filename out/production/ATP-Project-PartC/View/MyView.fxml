@@ -9,12 +9,15 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -47,21 +50,38 @@
                     <TextField fx:id="textField_mazeRows" text="10" GridPane.columnIndex="1" GridPane.rowIndex="0" />
                     <TextField fx:id="textField_mazeColumns" text="10" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                     <Button onAction="#generateMaze" prefHeight="25.0" prefWidth="167.0" stylesheets="@MainStyle.css" text="Generate Maze" textFill="#171717" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="2">
-                  <cursor>
-                     <Cursor fx:constant="DEFAULT" />
-                  </cursor>
-                  <font>
-                     <Font name="System Bold" size="12.0" />
-                  </font>
-               </Button>
+                        <cursor>
+                            <Cursor fx:constant="DEFAULT" />
+                        </cursor>
+                        <font>
+                            <Font name="System Bold" size="12.0" />
+                        </font>
+                    </Button>
                     <Button cancelButton="true" onAction="#solveMaze" prefHeight="25.0" prefWidth="167.0" stylesheets="@MainStyle.css" text="Solve Maze" GridPane.columnSpan="2" GridPane.rowIndex="3" />
                     <Label text="Player Row = " GridPane.rowIndex="4" />
                     <Label text="Player Col = " GridPane.rowIndex="5" />
                     <Label fx:id="playerRow" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                     <Label fx:id="playerCol" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                 </GridPane>
-            <CheckBox mnemonicParsing="false" text="Music" selected="true" onAction="#MusicCheckBox"/>
-            <CheckBox mnemonicParsing="false" text="Sounds" selected="true" onAction="#SoundCheckBox"/>
+                <CheckBox mnemonicParsing="false" onAction="#MusicCheckBox" selected="true" text="Music" />
+                <CheckBox mnemonicParsing="false" onAction="#SoundCheckBox" selected="true" text="Sounds" />
+            <Label text="Choose Player:" />
+            <GridPane>
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                   <RadioButton fx:id="GretelPlayer" mnemonicParsing="false" text="Gretel" onAction="#chooseGretelPlayer"  />
+                   <RadioButton fx:id="HanselPlayer" mnemonicParsing="false" text="Hansel" onAction="#chooseHanselPlayer" GridPane.columnIndex="1"/>
+                  <ImageView fitHeight="67.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="2" />
+               </children>
+            </GridPane>
             </children>
             <padding>
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -83,27 +103,33 @@
                     <menus>
                         <Menu mnemonicParsing="false" text="File">
                             <items>
-                                <MenuItem mnemonicParsing="false" text="New" onAction="#newMaze"/>
+                                <MenuItem mnemonicParsing="false" onAction="#newMaze" text="New" />
                             </items>
                             <items>
-                                <MenuItem mnemonicParsing="false" text="Save" onAction="#saveMaze" />
+                                <MenuItem mnemonicParsing="false" onAction="#saveMaze" text="Save" />
                             </items>
                             <items>
-                                <MenuItem mnemonicParsing="false" text="Load" onAction="#loadMaze" />
+                                <MenuItem mnemonicParsing="false" onAction="#loadMaze" text="Load" />
                             </items>
                         </Menu>
                         <Menu mnemonicParsing="false" text="Options">
                             <items>
-                                <MenuItem mnemonicParsing="false" text="Properties" onAction="#openProp" />
+                                <MenuItem mnemonicParsing="false" onAction="#openProp" text="Properties" />
                             </items>
                         </Menu>
                         <Menu mnemonicParsing="false" text="Help">
+                            <items>
+                                <MenuItem mnemonicParsing="false" onAction="#openHelp" text="Help" />
+                            </items>
                         </Menu>
                         <Menu mnemonicParsing="false" text="About">
-                        </Menu>
-                        <Menu mnemonicParsing="false" text="Exit" fx:id="exitMenu" >
                             <items>
-                                <MenuItem mnemonicParsing="false" text="Exit Maze" onAction="#exitProgram"/>
+                                <MenuItem mnemonicParsing="false" onAction="#openAbout" text="About" />
+                            </items>
+                        </Menu>
+                        <Menu fx:id="exitMenu" mnemonicParsing="false" text="Exit">
+                            <items>
+                                <MenuItem mnemonicParsing="false" onAction="#exitProgram" text="Exit Maze" />
                             </items>
                         </Menu>
                     </menus>
@@ -112,38 +138,51 @@
         </VBox>
     </top>
     <center>
-        <Pane fx:id="mazePane" onScroll="#scrollMaze" prefHeight="317.0" prefWidth="362.0" BorderPane.alignment="CENTER">
+        <ScrollPane fx:id="mazeScrollPane" onScroll="#scrollMaze" pannable="true" prefHeight="358.0" prefWidth="362.0" BorderPane.alignment="CENTER">
             <!--
             <ScrollPane fx:id="scrollPaneMaze" BorderPane.alignment="CENTER" pannable="true" />
 -->
             <BorderPane.margin>
-                <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+                <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
             </BorderPane.margin>
-            <children>
+            <content>
                 <MazeDisplayer fx:id="mazeDisplayer" height="400.0"
-                               imageFileNameVoid="./resources/images/void.png"
-                               imageFileNamePlayer="./resources/images/gretel_front.png"
-                               imageFileNamePlayerRight1="./resources/images/gretel_right_1.png"
-                               imageFileNamePlayerRight2="./resources/images/gretel_right_2.png"
-                               imageFileNamePlayerLeft1="./resources/images/gretel_left_1.png"
-                               imageFileNamePlayerLeft2="./resources/images/gretel_left_2.png"
-                               imageFileNamePlayerFront1="./resources/images/gretel_front_1.png"
-                               imageFileNamePlayerFront2="./resources/images/gretel_front_2.png"
-                               imageFileNamePlayerBack="./resources/images/gretel_back.png"
-                               imageFileNamePlayerBack1="./resources/images/gretel_back_1.png"
-                               imageFileNamePlayerBack2="./resources/images/gretel_back_2.png"
-                               imageFileNamePath="./resources/images/path.jpg"
-                               imageFileNameWall="./resources/images/wall.png"
                                imageFileNameBreadCrumb="./resources/images/bread_crumb.png"
                                imageFileNameGoal="./resources/images/goal.png"
+                               imageFileNamePath="./resources/images/path.jpg"
                                imageFileNameVictory="./resources/images/victory.png"
+                               imageFileNameWall="./resources/images/wall.png"
+
+
+                               imageFileNameGretel="./resources/images/gretel_front.png"
+                               imageFileNameGretelBack="./resources/images/gretel_back.png"
+                               imageFileNameGretelBack1="./resources/images/gretel_back_1.png"
+                               imageFileNameGretelBack2="./resources/images/gretel_back_2.png"
+                               imageFileNameGretelFront1="./resources/images/gretel_front_1.png"
+                               imageFileNameGretelFront2="./resources/images/gretel_front_2.png"
+                               imageFileNameGretelLeft1="./resources/images/gretel_left_1.png"
+                               imageFileNameGretelLeft2="./resources/images/gretel_left_2.png"
+                               imageFileNameGretelRight1="./resources/images/gretel_right_1.png"
+                               imageFileNameGretelRight2="./resources/images/gretel_right_2.png"
+
+                               imageFileNameHansel="./resources/images/hansel_front.png"
+                               imageFileNameHanselBack="./resources/images/hansel_back.png"
+                               imageFileNameHanselBack1="./resources/images/hansel_back_1.png"
+                               imageFileNameHanselBack2="./resources/images/hansel_back_2.png"
+                               imageFileNameHanselFront1="./resources/images/hansel_front_1.png"
+                               imageFileNameHanselFront2="./resources/images/hansel_front_2.png"
+                               imageFileNameHanselLeft1="./resources/images/hansel_left_1.png"
+                               imageFileNameHanselLeft2="./resources/images/hansel_left_2.png"
+                               imageFileNameHanselRight1="./resources/images/hansel_right_1.png"
+                               imageFileNameHanselRight2="./resources/images/hansel_right_2.png"
+
                                onKeyPressed="#keyPressed"
                                onMouseDragged="#mouseDragged"
-                               width="400.0"/>
-            </children>
+                               width="400.0" />
+            </content>
             <padding>
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
             </padding>
-        </Pane>
+        </ScrollPane>
     </center>
 </BorderPane>

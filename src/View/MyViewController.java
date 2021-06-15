@@ -416,6 +416,35 @@ public class MyViewController implements Initializable, IView, Observer {
 
     }
 
+    public void openHelp(ActionEvent actionEvent) throws IOException {
+        Stage stage = new Stage();
+        stage.setTitle("Help");
+        FXMLLoader HelpFXML = new FXMLLoader(getClass().getResource("/View/Help.fxml"));
+        Parent root = HelpFXML.load();
+//        PropertiesController helpController = HelpFXML.getController();
+//        helpController.setViewModel(viewModel);
+//        helpController.setStage(stage);
+        Scene scene = new Scene(root, 650, 250);
+        stage.setScene(scene);
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.show();
+    }
+
+    public void openAbout(ActionEvent actionEvent) throws IOException {
+        Stage stage = new Stage();
+        stage.setTitle("Help");
+        FXMLLoader aboutFXML = new FXMLLoader(getClass().getResource("/View/About.fxml"));
+        Parent root = aboutFXML.load();
+        //PropertiesController aboutController = aboutFXML.getController();
+        //aboutController.setViewModel(viewModel);
+        //aboutController.setStage(stage);
+        Scene scene = new Scene(root, 650, 250);
+        stage.setScene(scene);
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.show();
+    }
+
+
     public void newMaze(ActionEvent actionEvent) {
         int rows = Integer.valueOf(textField_mazeRows.getText());
         int columns = Integer.valueOf(textField_mazeColumns.getText());
@@ -430,6 +459,16 @@ public class MyViewController implements Initializable, IView, Observer {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setContentText("Hii ! You should insert positive numbers... ");
         alert.show();
+    }
+
+    public void chooseHanselPlayer(ActionEvent actionEvent){
+        this.mazeDisplayer.setPlayer("Hansel");
+        mazeDisplayer.drawMaze(viewModel.getMaze());
+    }
+
+    public void chooseGretelPlayer(ActionEvent actionEvent){
+        this.mazeDisplayer.setPlayer("Gretel");
+        mazeDisplayer.drawMaze(viewModel.getMaze());
     }
 }
 
