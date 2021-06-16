@@ -1,20 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.image.Image?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
+<?import javafx.scene.text.TextFlow?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@MainStyle.css" xmlns="http://javafx.com/javafx/16" >
+<AnchorPane prefHeight="274.0" prefWidth="600.0" stylesheets="@MainStyle.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Text layoutX="264.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Help" underline="true">
          <font>
             <Font name="Yu Gothic Medium" size="34.0" />
          </font>
       </Text>
-      <Text layoutX="212.0" layoutY="95.0" strokeType="OUTSIDE" strokeWidth="0.0" text="welcome!" wrappingWidth="175.78253173828125" />
       <ImageView fitHeight="130.0" fitWidth="136.0" layoutX="433.0" layoutY="91.0">
       </ImageView>
+      <TextFlow layoutX="11.0" layoutY="56.0" prefHeight="310.0" prefWidth="577.0">
+         <children>
+            <TextArea prefHeight="216.0" prefWidth="580.0" text="To start a geme- press &quot;Generate Game&quot;.&#10;&#10;If you need some bread crumbs to guide your way - press &quot;Solve Maze&quot; and the solution will show.&#10;&#10;You can stop the music and the sound by checking and unchecking the boxes neear &quot;music&quot; and &quot;sound&quot;&#10;&#10;You can choose diferent players - just press &quot;Hansel&quot; or &quot;Gretel&quot;&#10;&#10;At any point you can save your game, by clicking File-&gt;Save,&#10;or load a saved game by clicking File-&gt;Load.&#10;&#10;You can change Properties such as Maze Generator Type, Searching Algorithm, and more,&#10;by clicking Options-&gt;Properties.&#10;&#10;In order to move around the maze - use the arrows in the key board, or the numbers on the right:&#10;1 - down left&#10;2- down&#10;3- down right&#10;4 - right&#10;6 - left&#10;7 - up left&#10;8- up&#10;9- up right&#10;&#10;Read more about the game and the creators by clicking &quot;About&quot;.&#10;&#10;You can always return to this window by clicking &quot;Help&quot;&#10;&#10;GOOD LUCK!" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="216.990234375">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="216.990234375">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+         </children>
+      </TextFlow>
    </children>
 </AnchorPane>

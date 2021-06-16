@@ -1,20 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.image.Image?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
+<?import javafx.scene.text.TextFlow?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@MainStyle.css" xmlns="http://javafx.com/javafx/16" >
+<AnchorPane prefHeight="274.0" prefWidth="600.0" stylesheets="@MainStyle.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Text layoutX="264.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="About" underline="true">
          <font>
             <Font name="Yu Gothic Medium" size="34.0" />
          </font>
       </Text>
-      <Text layoutX="212.0" layoutY="95.0" strokeType="OUTSIDE" strokeWidth="0.0" text="welcome!" wrappingWidth="175.78253173828125" />
       <ImageView fitHeight="130.0" fitWidth="136.0" layoutX="433.0" layoutY="91.0">
       </ImageView>
+      <TextFlow layoutX="11.0" layoutY="56.0" prefHeight="310.0" prefWidth="577.0">
+         <children>
+            <TextArea prefHeight="216.0" prefWidth="580.0" text="Help Hansel and Gretel find the way to the Candy Home!&#10;&#10;This game was developed, design, drawn, and dubugged by Tamar Shaiman and Hadar Sabati.&#10;" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="216.990234375">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="216.990234375">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+         </children>
+      </TextFlow>
    </children>
 </AnchorPane>
