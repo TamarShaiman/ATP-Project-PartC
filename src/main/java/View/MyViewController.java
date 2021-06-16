@@ -386,7 +386,7 @@ public class MyViewController implements Initializable, IView, Observer {
     public void openProp(ActionEvent actionEvent) throws IOException {
         Stage stage = new Stage();
         stage.setTitle("Properties");
-        FXMLLoader propFXML = new FXMLLoader(getClass().getResource("/Properties.fxml"));
+        FXMLLoader propFXML = new FXMLLoader(new File("src/main/resources/Properties.fxml").toURI().toURL());
         Parent root = propFXML.load();
         PropertiesController propController = propFXML.getController();
         propController.setViewModel(viewModel);
@@ -410,8 +410,8 @@ public class MyViewController implements Initializable, IView, Observer {
     public void openHelp(ActionEvent actionEvent) throws IOException {
         Stage stage = new Stage();
         stage.setTitle("Help");
-        FXMLLoader HelpFXML = new FXMLLoader(getClass().getResource("/Help.fxml"));
-        Parent root = HelpFXML.load();
+        FXMLLoader propFXML = new FXMLLoader(new File("src/main/resources/Help.fxml").toURI().toURL());
+        Parent root = propFXML.load();
 //        PropertiesController helpController = HelpFXML.getController();
 //        helpController.setViewModel(viewModel);
 //        helpController.setStage(stage);
@@ -424,8 +424,8 @@ public class MyViewController implements Initializable, IView, Observer {
     public void openAbout(ActionEvent actionEvent) throws IOException {
         Stage stage = new Stage();
         stage.setTitle("Help");
-        FXMLLoader aboutFXML = new FXMLLoader(getClass().getResource("/About.fxml"));
-        Parent root = aboutFXML.load();
+        FXMLLoader propFXML = new FXMLLoader(new File("src/main/resources/About.fxml").toURI().toURL());
+        Parent root = propFXML.load();
         //PropertiesController aboutController = aboutFXML.getController();
         //aboutController.setViewModel(viewModel);
         //aboutController.setStage(stage);

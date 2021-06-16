@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane prefHeight="305.0" prefWidth="578.0" style="/*-fx-background-image: url;*/ -fx-background-size: 100% 100%;" stylesheets="@windowsStyle.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.PropertiesController">
+<Pane prefHeight="305.0" prefWidth="578.0" style="/*-fx-background-image: url;*/ -fx-background-size: 100% 100%;" stylesheets="@MainStyle.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.PropertiesController">
     <children>
         <ImageView fitHeight="336.0" fitWidth="578.0" layoutY="1.0" opacity="0.4">
             <effect>
