@@ -1,10 +1,8 @@
 package View;
 
-import com.sun.media.jfxmediaimpl.platform.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
@@ -14,7 +12,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -22,16 +19,10 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.*;
 import javafx.scene.transform.Scale;
-import javafx.stage.FileChooser;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
-import java.awt.*;
-import java.awt.image.ImageObserver;
-import java.awt.image.ImageProducer;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Observable;
@@ -395,7 +386,7 @@ public class MyViewController implements Initializable, IView, Observer {
     public void openProp(ActionEvent actionEvent) throws IOException {
         Stage stage = new Stage();
         stage.setTitle("Properties");
-        FXMLLoader propFXML = new FXMLLoader(getClass().getResource("/View/Properties.fxml"));
+        FXMLLoader propFXML = new FXMLLoader(getClass().getResource("/Properties.fxml"));
         Parent root = propFXML.load();
         PropertiesController propController = propFXML.getController();
         propController.setViewModel(viewModel);
@@ -419,7 +410,7 @@ public class MyViewController implements Initializable, IView, Observer {
     public void openHelp(ActionEvent actionEvent) throws IOException {
         Stage stage = new Stage();
         stage.setTitle("Help");
-        FXMLLoader HelpFXML = new FXMLLoader(getClass().getResource("/View/Help.fxml"));
+        FXMLLoader HelpFXML = new FXMLLoader(getClass().getResource("/Help.fxml"));
         Parent root = HelpFXML.load();
 //        PropertiesController helpController = HelpFXML.getController();
 //        helpController.setViewModel(viewModel);
@@ -433,7 +424,7 @@ public class MyViewController implements Initializable, IView, Observer {
     public void openAbout(ActionEvent actionEvent) throws IOException {
         Stage stage = new Stage();
         stage.setTitle("Help");
-        FXMLLoader aboutFXML = new FXMLLoader(getClass().getResource("/View/About.fxml"));
+        FXMLLoader aboutFXML = new FXMLLoader(getClass().getResource("/About.fxml"));
         Parent root = aboutFXML.load();
         //PropertiesController aboutController = aboutFXML.getController();
         //aboutController.setViewModel(viewModel);
