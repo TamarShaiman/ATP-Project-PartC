@@ -11,14 +11,14 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane prefHeight="305.0" prefWidth="578.0" style="/*-fx-background-image: url;*/ -fx-background-size: 100% 100%;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.PropertiesController">
+<Pane prefHeight="305.0" prefWidth="578.0" style="/*-fx-background-image: url;*/ -fx-background-size: 100% 100%;" stylesheets="@MainStyle.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.PropertiesController">
     <children>
         <ImageView fitHeight="336.0" fitWidth="578.0" layoutY="1.0" opacity="0.4">
             <effect>
                 <BoxBlur iterations="0" />
             </effect>
             <image>
-              <!--  <Image url="@../../resources/images/PropBackground.jpg" />-->
+              <!--  <Image url="@../../resources/images/path.jpg" />-->
             </image>
         </ImageView>
         <Label layoutX="212.0" layoutY="48.0" prefHeight="20.0" prefWidth="177.0" text="Searching Algorithm" underline="true">

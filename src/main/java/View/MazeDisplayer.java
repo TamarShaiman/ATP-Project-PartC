@@ -32,27 +32,45 @@ public class MazeDisplayer extends Canvas {
     private int goalRow;
     private int goalCol;
     private Solution solution;
+    private String playerName = "Hansel";
     boolean showSolution = false;
     public boolean won = false;
 
     //images:
+    //backgrounds:
     StringProperty imageFileNameWall = new SimpleStringProperty();
     StringProperty imageFileNamePath = new SimpleStringProperty();
     StringProperty imageFileNameGoal = new SimpleStringProperty();
-    StringProperty imageFileNamePlayer = new SimpleStringProperty();
-    StringProperty imageFileNamePlayerRight1 = new SimpleStringProperty();
-    StringProperty imageFileNamePlayerRight2 = new SimpleStringProperty();
-    StringProperty imageFileNamePlayerLeft1 = new SimpleStringProperty();
-    StringProperty imageFileNamePlayerLeft2 = new SimpleStringProperty();
-    StringProperty imageFileNamePlayerFront1 = new SimpleStringProperty();
-    StringProperty imageFileNamePlayerFront2 = new SimpleStringProperty();
-    StringProperty imageFileNamePlayerBack1 = new SimpleStringProperty();
-    StringProperty imageFileNamePlayerBack2 = new SimpleStringProperty();
-    StringProperty imageFileNamePlayerBack = new SimpleStringProperty();
-    StringProperty imageFileNameVoid = new SimpleStringProperty();
     StringProperty imageFileNameBreadCrumb= new SimpleStringProperty();
     StringProperty imageFileNameVictory= new SimpleStringProperty();
     StringProperty imageFileNameBackground = new SimpleStringProperty();
+
+    //Gretel:
+    StringProperty imageFileNameGretel = new SimpleStringProperty();
+    StringProperty imageFileNameGretelRight1 = new SimpleStringProperty();
+    StringProperty imageFileNameGretelRight2 = new SimpleStringProperty();
+    StringProperty imageFileNameGretelLeft1 = new SimpleStringProperty();
+    StringProperty imageFileNameGretelLeft2 = new SimpleStringProperty();
+    StringProperty imageFileNameGretelFront1 = new SimpleStringProperty();
+    StringProperty imageFileNameGretelFront2 = new SimpleStringProperty();
+    StringProperty imageFileNameGretelBack1 = new SimpleStringProperty();
+    StringProperty imageFileNameGretelBack2 = new SimpleStringProperty();
+    StringProperty imageFileNameGretelBack = new SimpleStringProperty();
+
+    //Hansel:
+    StringProperty imageFileNameHansel = new SimpleStringProperty();
+    StringProperty imageFileNameHanselRight1 = new SimpleStringProperty();
+    StringProperty imageFileNameHanselRight2 = new SimpleStringProperty();
+    StringProperty imageFileNameHanselLeft1 = new SimpleStringProperty();
+    StringProperty imageFileNameHanselLeft2 = new SimpleStringProperty();
+    StringProperty imageFileNameHanselFront1 = new SimpleStringProperty();
+    StringProperty imageFileNameHanselFront2 = new SimpleStringProperty();
+    StringProperty imageFileNameHanselBack1 = new SimpleStringProperty();
+    StringProperty imageFileNameHanselBack2 = new SimpleStringProperty();
+    StringProperty imageFileNameHanselBack = new SimpleStringProperty();
+
+    //StringProperty imageFileNameVoid = new SimpleStringProperty();
+
 
 
 
@@ -142,95 +160,180 @@ public class MazeDisplayer extends Canvas {
         this.imageFileNamePath.set(imageFileNamePath);
     }
 
-    public String getImageFileNamePlayer() {
-        return imageFileNamePlayer.get();
+    public String getImageFileNameGretel() {
+        return imageFileNameGretel.get();
     }
 
-    public String getImageFileNamePlayerRight1() {
-        return imageFileNamePlayerRight1.get();
+    public String getImageFileNameHansel() {
+        return imageFileNameHansel.get();
     }
 
-    public String getImageFileNamePlayerRight2() {
-        return imageFileNamePlayerRight2.get();
+    public String getImageFileNameGretelRight1() {
+        return imageFileNameGretelRight1.get();
     }
 
-    public String getImageFileNamePlayerLeft1() {
-        return imageFileNamePlayerLeft1.get();
+    public String getImageFileNameHanselRight1() {
+        return imageFileNameHanselRight1.get();
     }
 
-    public String getImageFileNamePlayerLeft2() {
-        return imageFileNamePlayerLeft2.get();
+    public String getImageFileNameGretelRight2() {
+        return imageFileNameGretelRight2.get();
     }
 
-    public String getImageFileNamePlayerFront1() {
-        return imageFileNamePlayerFront1.get();
+    public String getImageFileNameHanselRight2() {
+        return imageFileNameHanselRight2.get();
     }
 
-    public String getImageFileNamePlayerFront2() {
-        return imageFileNamePlayerFront2.get();
+    public String getImageFileNameGretelLeft1() {
+        return imageFileNameGretelLeft1.get();
     }
 
-    public String getImageFileNamePlayerBack1() {
-        return imageFileNamePlayerBack1.get();
+    public String getImageFileNameHanselLeft1() {
+        return imageFileNameHanselLeft1.get();
     }
 
-    public String getImageFileNamePlayerBack2() {
-        return imageFileNamePlayerBack2.get();
+    public String getImageFileNameGretelLeft2() {
+        return imageFileNameGretelLeft2.get();
     }
 
-    public String getImageFileNamePlayerBack() {
-        return imageFileNamePlayerBack.get();
+    public String getImageFileNameHanselLeft2() {
+        return imageFileNameHanselLeft2.get();
     }
 
-    public String getImageFileNameVoid() { return imageFileNameVoid.get(); }
+    public String getImageFileNameGretelFront1() {
+        return imageFileNameGretelFront1.get();
+    }
+
+    public String getImageFileNameHanselFront1() {
+        return imageFileNameHanselFront1.get();
+    }
+
+    public String getImageFileNameGretelFront2() {
+        return imageFileNameGretelFront2.get();
+    }
+
+    public String getImageFileNameHanselFront2() {
+        return imageFileNameHanselFront2.get();
+    }
+
+
+    public String getImageFileNameGretelBack1() {
+        return imageFileNameGretelBack1.get();
+    }
+
+    public String getImageFileNameHanselBack1() {
+        return imageFileNameHanselBack1.get();
+    }
+
+    public String getImageFileNameGretelBack2() {
+        return imageFileNameGretelBack2.get();
+    }
+
+    public String getImageFileNameHanselBack2() {
+        return imageFileNameHanselBack2.get();
+    }
+
+    public String getImageFileNameGretelBack() {
+        return imageFileNameGretelBack.get();
+    }
+
+    public String getImageFileNameHanselBack() {
+        return imageFileNameHanselBack.get();
+    }
+
+//    public String getImageFileNameVoid() { return imageFileNameVoid.get(); }
 
     public String imageFileNamePlayerProperty() {
-        return imageFileNamePlayer.get();
+        if (this.playerName.equals("Gretel"))
+            return imageFileNameGretel.get();
+        else if (this.playerName.equals("Hansel"))
+            return imageFileNameHansel.get();
+        return null;
     }
 
-    public void setImageFileNamePlayer(String imageFileNamePlayer) {
-        this.imageFileNamePlayer.set(imageFileNamePlayer);
+    public void setImageFileNameGretel(String imageFileNamePlayer) {
+        imageFileNameGretel.set(imageFileNamePlayer);
     }
 
-    public void setImageFileNamePlayerRight1(String imageFileNamePlayer) {
-        this.imageFileNamePlayerRight1.set(imageFileNamePlayer);
+    public void setImageFileNameHansel(String imageFileNamePlayer) {
+        imageFileNameHansel.set(imageFileNamePlayer);
     }
 
-    public void setImageFileNamePlayerRight2(String imageFileNamePlayer) {
-        this.imageFileNamePlayerRight2.set(imageFileNamePlayer);
+    public void setImageFileNameGretelRight1(String imageFileNamePlayer) {
+        imageFileNameGretelRight1.set(imageFileNamePlayer);
     }
 
-    public void setImageFileNamePlayerLeft1(String imageFileNamePlayer) {
-        this.imageFileNamePlayerLeft1.set(imageFileNamePlayer);
+    public void setImageFileNameHanselRight1(String imageFileNamePlayer) {
+        imageFileNameHanselRight1.set(imageFileNamePlayer);
     }
 
-    public void setImageFileNamePlayerLeft2(String imageFileNamePlayer) {
-        this.imageFileNamePlayerLeft2.set(imageFileNamePlayer);
+    public void setImageFileNameGretelRight2(String imageFileNamePlayer) {
+        imageFileNameGretelRight2.set(imageFileNamePlayer);
     }
 
-    public void setImageFileNamePlayerFront1(String imageFileNamePlayer) {
-        this.imageFileNamePlayerFront1.set(imageFileNamePlayer);
+    public void setImageFileNameHanselRight2(String imageFileNamePlayer) {
+        imageFileNameHanselRight2.set(imageFileNamePlayer);
     }
 
-    public void setImageFileNamePlayerFront2(String imageFileNamePlayer) {
-        this.imageFileNamePlayerFront2.set(imageFileNamePlayer);
+    public void setImageFileNameGretelLeft1(String imageFileNamePlayer) {
+        imageFileNameGretelLeft1.set(imageFileNamePlayer);
     }
 
-    public void setImageFileNamePlayerBack1(String imageFileNamePlayer) {
-        this.imageFileNamePlayerBack1.set(imageFileNamePlayer);
+    public void setImageFileNameHanselLeft1(String imageFileNamePlayer) {
+        imageFileNameHanselLeft1.set(imageFileNamePlayer);
     }
 
-    public void setImageFileNamePlayerBack2(String imageFileNamePlayer) {
-        this.imageFileNamePlayerBack2.set(imageFileNamePlayer);
+    public void setImageFileNameGretelLeft2(String imageFileNamePlayer) {
+        imageFileNameGretelLeft2.set(imageFileNamePlayer);
     }
 
-    public void setImageFileNamePlayerBack(String imageFileNamePlayer) {
-        this.imageFileNamePlayerBack.set(imageFileNamePlayer);
+    public void setImageFileNameHanselLeft2(String imageFileNamePlayer) {
+        imageFileNameHanselLeft2.set(imageFileNamePlayer);
     }
 
-    public void setImageFileNameVoid(String imageFileName) {
-        this.imageFileNameVoid.set(imageFileName);
+    public void setImageFileNameGretelFront1(String imageFileNamePlayer) {
+        imageFileNameGretelFront1.set(imageFileNamePlayer);
     }
+
+    public void setImageFileNameHanselFront1(String imageFileNamePlayer) {
+        imageFileNameHanselFront1.set(imageFileNamePlayer);
+    }
+
+    public void setImageFileNameGretelFront2(String imageFileNamePlayer) {
+        imageFileNameGretelFront2.set(imageFileNamePlayer);
+    }
+
+    public void setImageFileNameHanselFront2(String imageFileNamePlayer) {
+        imageFileNameHanselFront2.set(imageFileNamePlayer);
+    }
+
+    public void setImageFileNameGretelBack1(String imageFileNamePlayer) {
+        imageFileNameGretelBack1.set(imageFileNamePlayer);
+    }
+
+    public void setImageFileNameHanselBack1(String imageFileNamePlayer) {
+        imageFileNameHanselBack1.set(imageFileNamePlayer);
+    }
+
+    public void setImageFileNameGretelBack2(String imageFileNamePlayer) {
+        imageFileNameGretelBack2.set(imageFileNamePlayer);
+    }
+
+    public void setImageFileNameHanselBack2(String imageFileNamePlayer) {
+        imageFileNameHanselBack2.set(imageFileNamePlayer);
+    }
+
+    public void setImageFileNameGretelBack(String imageFileNamePlayer) {
+        imageFileNameGretelBack.set(imageFileNamePlayer);
+    }
+
+    public void setImageFileNameHanselBack(String imageFileNamePlayer) {
+        imageFileNameHanselBack.set(imageFileNamePlayer);
+    }
+
+//    public void setImageFileNameVoid(String imageFileName) {
+//        this.imageFileNameVoid.set(imageFileName);
+//    }
 
     public void drawMaze(int[][] maze) {
         this.maze = maze;
@@ -303,7 +406,7 @@ public class MazeDisplayer extends Canvas {
                                 drawSolution(graphicsContext, cellHeight, cellWidth, rows, cols);
                             graphicsContext.drawImage(images[1], coordinates[2], coordinates[3], cellWidth, cellHeight);
                         }
-                    }, 75);
+                    }, 90);
 
 
                     timer1.schedule(new TimerTask() {
@@ -318,7 +421,7 @@ public class MazeDisplayer extends Canvas {
                             else
                                 drawPlayer(graphicsContext, cellHeight, cellWidth);
                         }
-                    }, 150);
+                    }, 200);
                 }
             }
         }
@@ -333,8 +436,14 @@ public class MazeDisplayer extends Canvas {
             coordinates[2] = getPlayerCol() * cellWidth - cellWidth * 1 / 3;
             coordinates[3] = getPlayerRow() * cellHeight;
             try {
-                images[0] = new Image(new FileInputStream(getImageFileNamePlayerRight1()));
-                images[1] = new Image(new FileInputStream(getImageFileNamePlayerRight2()));
+                if (this.playerName.equals("Gretel")) {
+                    images[0] = new Image(new FileInputStream(getImageFileNameGretelRight1()));
+                    images[1] = new Image(new FileInputStream(getImageFileNameGretelRight2()));
+                }
+                if (this.playerName.equals("Hansel")) {
+                    images[0] = new Image(new FileInputStream(getImageFileNameHanselRight1()));
+                    images[1] = new Image(new FileInputStream(getImageFileNameHanselRight2()));
+                }
             }
             catch (FileNotFoundException e) {
                 System.out.println("There is no player image file");
@@ -347,8 +456,14 @@ public class MazeDisplayer extends Canvas {
             coordinates[2] = getPlayerCol() * cellWidth + cellWidth * 1 / 3;
             coordinates[3] = getPlayerRow() * cellHeight;
             try {
-                images[0] = new Image(new FileInputStream(getImageFileNamePlayerLeft1()));
-                images[1] = new Image(new FileInputStream(getImageFileNamePlayerLeft2()));
+                if (this.playerName.equals("Gretel")) {
+                    images[0] = new Image(new FileInputStream(getImageFileNameGretelLeft1()));
+                    images[1] = new Image(new FileInputStream(getImageFileNameGretelLeft2()));
+                }
+                if (this.playerName.equals("Hansel")) {
+                    images[0] = new Image(new FileInputStream(getImageFileNameHanselLeft1()));
+                    images[1] = new Image(new FileInputStream(getImageFileNameHanselLeft2()));
+                }
             }
             catch (FileNotFoundException e) {
                 System.out.println("There is no player image file");
@@ -361,8 +476,14 @@ public class MazeDisplayer extends Canvas {
             coordinates[2] = getPlayerCol() * cellWidth;
             coordinates[3] = getPlayerRow() * cellHeight + cellWidth * 1 / 3;
             try {
-                images[0] = new Image(new FileInputStream(getImageFileNamePlayerBack1()));
-                images[1] = new Image(new FileInputStream(getImageFileNamePlayerBack2()));
+                if (this.playerName.equals("Gretel")) {
+                    images[0] = new Image(new FileInputStream(getImageFileNameGretelBack1()));
+                    images[1] = new Image(new FileInputStream(getImageFileNameGretelBack2()));
+                }
+                if (this.playerName.equals("Hansel")) {
+                    images[0] = new Image(new FileInputStream(getImageFileNameHanselBack1()));
+                    images[1] = new Image(new FileInputStream(getImageFileNameHanselBack2()));
+                }
             }
             catch (FileNotFoundException e) {
                 System.out.println("There is no player image file");
@@ -375,8 +496,16 @@ public class MazeDisplayer extends Canvas {
             coordinates[2] = getPlayerCol() * cellWidth;
             coordinates[3] = getPlayerRow() * cellHeight - cellWidth * 1 / 3;
             try {
-                images[0] = new Image(new FileInputStream(getImageFileNamePlayerFront1()));
-                images[1] = new Image(new FileInputStream(getImageFileNamePlayerFront2()));
+                if (this.playerName.equals("Gretel")) {
+                    images[0] = new Image(new FileInputStream(getImageFileNameGretelFront1()));
+                    images[1] = new Image(new FileInputStream(getImageFileNameGretelFront2()));
+                }
+                if (this.playerName.equals("Hansel")) {
+                    images[0] = new Image(new FileInputStream(getImageFileNameHanselFront1()));
+                    //System.out.println("hello");
+                    images[1] = new Image(new FileInputStream(getImageFileNameHanselFront1()));
+                    //System.out.println("olah");
+                }
             }
             catch (FileNotFoundException e) {
                 System.out.println("There is no player image file");
@@ -389,8 +518,14 @@ public class MazeDisplayer extends Canvas {
             coordinates[2] = getPlayerCol() * cellWidth - cellWidth * 1 / 3;
             coordinates[3] = getPlayerRow() * cellHeight - cellWidth * 1 / 3;
             try {
-                images[0] = new Image(new FileInputStream(getImageFileNamePlayerRight1()));
-                images[1] = new Image(new FileInputStream(getImageFileNamePlayerRight2()));
+                if (this.playerName.equals("Gretel")) {
+                    images[0] = new Image(new FileInputStream(getImageFileNameGretelRight1()));
+                    images[1] = new Image(new FileInputStream(getImageFileNameGretelRight2()));
+                }
+                if (this.playerName.equals("Hansel")) {
+                    images[0] = new Image(new FileInputStream(getImageFileNameHanselRight1()));
+                    images[1] = new Image(new FileInputStream(getImageFileNameHanselRight2()));
+                }
             }
             catch (FileNotFoundException e) {
                 System.out.println("There is no player image file");
@@ -403,8 +538,14 @@ public class MazeDisplayer extends Canvas {
             coordinates[2] = getPlayerCol() * cellWidth - cellWidth * 1 / 3;
             coordinates[3] = getPlayerRow() * cellHeight + cellWidth * 1 / 3;
             try {
-                images[0] = new Image(new FileInputStream(getImageFileNamePlayerRight1()));
-                images[1] = new Image(new FileInputStream(getImageFileNamePlayerRight2()));
+                if (this.playerName.equals("Gretel")) {
+                    images[0] = new Image(new FileInputStream(getImageFileNameGretelRight1()));
+                    images[1] = new Image(new FileInputStream(getImageFileNameGretelRight2()));
+                }
+                if (this.playerName.equals("Hansel")) {
+                    images[0] = new Image(new FileInputStream(getImageFileNameHanselRight1()));
+                    images[1] = new Image(new FileInputStream(getImageFileNameHanselRight2()));
+                }
             }
             catch (FileNotFoundException e) {
                 System.out.println("There is no player image file");
@@ -417,8 +558,14 @@ public class MazeDisplayer extends Canvas {
             coordinates[2] = getPlayerCol() * cellWidth + cellWidth * 1 / 3;
             coordinates[3] = getPlayerRow() * cellHeight - cellWidth * 1 / 3;
             try {
-                images[0] = new Image(new FileInputStream(getImageFileNamePlayerLeft1()));
-                images[1] = new Image(new FileInputStream(getImageFileNamePlayerLeft2()));
+                if (this.playerName.equals("Gretel")) {
+                    images[0] = new Image(new FileInputStream(getImageFileNameGretelLeft1()));
+                    images[1] = new Image(new FileInputStream(getImageFileNameGretelLeft2()));
+                }
+                if (this.playerName.equals("Hansel")) {
+                    images[0] = new Image(new FileInputStream(getImageFileNameHanselLeft1()));
+                    images[1] = new Image(new FileInputStream(getImageFileNameHanselLeft2()));
+                }
             }
             catch (FileNotFoundException e) {
                 System.out.println("There is no player image file");
@@ -431,8 +578,14 @@ public class MazeDisplayer extends Canvas {
             coordinates[2] = getPlayerCol() * cellWidth + cellWidth * 1 / 3;
             coordinates[3] = getPlayerRow() * cellHeight + cellWidth * 1 / 3;
             try {
-                images[0] = new Image(new FileInputStream(getImageFileNamePlayerLeft1()));
-                images[1] = new Image(new FileInputStream(getImageFileNamePlayerLeft2()));
+                if (this.playerName.equals("Gretel")) {
+                    images[0] = new Image(new FileInputStream(getImageFileNameGretelLeft1()));
+                    images[1] = new Image(new FileInputStream(getImageFileNameGretelLeft2()));
+                }
+                if (this.playerName.equals("Hansel")) {
+                    images[0] = new Image(new FileInputStream(getImageFileNameHanselLeft1()));
+                    images[1] = new Image(new FileInputStream(getImageFileNameHanselLeft2()));
+                }
             }
             catch (FileNotFoundException e) {
                 System.out.println("There is no player image file");
@@ -446,8 +599,14 @@ public class MazeDisplayer extends Canvas {
             coordinates[2] = getPlayerCol() * cellWidth;
             coordinates[3] = getPlayerRow() * cellHeight;
             try {
-                images[0] = new Image(new FileInputStream(getImageFileNamePlayer()));
-                images[1] = new Image(new FileInputStream(getImageFileNamePlayer()));
+                if (this.playerName.equals("Gretel")) {
+                    images[0] = new Image(new FileInputStream(getImageFileNameGretel()));
+                    images[1] = new Image(new FileInputStream(getImageFileNameGretel()));
+                }
+                if (this.playerName.equals("Hansel")) {
+                    images[0] = new Image(new FileInputStream(getImageFileNameHansel()));
+                    images[1] = new Image(new FileInputStream(getImageFileNameHansel()));
+                }
             }
             catch (FileNotFoundException e) {
                 System.out.println("There is no player image file");
@@ -480,7 +639,10 @@ public class MazeDisplayer extends Canvas {
 
         Image playerImage = null;
         try {
-            playerImage = new Image(new FileInputStream(getImageFileNamePlayer()));
+            if (this.playerName.equals("Gretel"))
+                playerImage = new Image(new FileInputStream(getImageFileNameGretel()));
+            if (this.playerName.equals("Hansel"))
+                playerImage = new Image(new FileInputStream(getImageFileNameHansel()));
         } catch (FileNotFoundException e) {
             System.out.println("There is no player image file");
         }
@@ -497,7 +659,10 @@ public class MazeDisplayer extends Canvas {
 
         Image playerImage = null;
         try {
-            playerImage = new Image(new FileInputStream(getImageFileNamePlayerBack()));
+            if (this.playerName.equals("Gretel"))
+                playerImage = new Image(new FileInputStream(getImageFileNameGretelBack()));
+            if (this.playerName.equals("Hansel"))
+                playerImage = new Image(new FileInputStream(getImageFileNameHanselBack()));
         } catch (FileNotFoundException e) {
             System.out.println("There is no player image file");
         }
@@ -625,5 +790,9 @@ public class MazeDisplayer extends Canvas {
 
     public void setGoalCol(int goalCol) {
         this.goalCol = goalCol;
+    }
+
+    public void setPlayer(String playerName) {
+        this.playerName = playerName;
     }
 }

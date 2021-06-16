@@ -11,11 +11,16 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
+import java.io.File;
+
 public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MyView.fxml"));
+//        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../../resources/MyView.fxml"));
+/*        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("src/main/resources/MyView.fxml"));
+        Parent root = fxmlLoader.load();*/
+        FXMLLoader fxmlLoader = new FXMLLoader(new File("src/main/resources/MyView.fxml").toURI().toURL());
         Parent root = fxmlLoader.load();
         primaryStage.setTitle("Hansel and Gretel Maze Game");
         Scene primeScene = new  Scene(root, 800, 600);
@@ -23,7 +28,7 @@ public class Main extends Application {
 
         IModel model = new MyModel();
         MyViewModel viewModel = new MyViewModel(model);
-        MyViewController view = fxmlLoader.getController(); // TODO; need to change to IView
+        View.MyViewController view = fxmlLoader.getController(); // TODO; need to change to IView
         view.setViewModel(viewModel);
         view.mediaPlayerMusic.setAutoPlay(true);
 

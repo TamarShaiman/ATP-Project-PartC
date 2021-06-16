@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@MainStyle.css" xmlns="http://javafx.com/javafx/16" >
+   <children>
+      <Text layoutX="264.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="About" underline="true">
+         <font>
+            <Font name="Yu Gothic Medium" size="34.0" />
+         </font>
+      </Text>
+      <Text layoutX="212.0" layoutY="95.0" strokeType="OUTSIDE" strokeWidth="0.0" text="welcome!" wrappingWidth="175.78253173828125" />
+      <ImageView fitHeight="130.0" fitWidth="136.0" layoutX="433.0" layoutY="91.0">
+      </ImageView>
+   </children>
+</AnchorPane>
